@@ -1,0 +1,308 @@
+// Body
+$body-bg: #f8fafc;
+// Typography
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+:root {
+    --navbar-height: 50px;
+    --sidebar-width: 15rem;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+.navbar_ {
+    // height: var(--navbar-height);
+    // line-height: var(--navbar-height);
+    // width: 100vw;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
+    // position: relative;
+    // padding: 0 1rem 0 1rem;
+    background: #388e3c;
+    // z-index: 10;
+    // box-shadow: 0 0 10px #fff;
+}
+.navbar-brand, .navbar__title {
+    margin-left: 2rem;
+    transition: 0.1s ease-in-out !important;
+}
+.navbar{
+    top: 0;
+    left: 0;
+    z-index: 20;
+    box-shadow: 0 0 30px solid #000 !important;
+    padding: 0 !important;
+}
+.navbar > .container{
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    transition: 0.1s ease-in-out !important;
+}
+.navbar__title a {
+    margin: 0px;
+    text-decoration: none;
+    color: #000;
+    font-size: 30px;
+    font-weight: bold;
+    transition: 0.1s ease all !important;
+}
+.navbar__title a:hover {
+    color: #fff;
+    transition: 0.3s ease all !important;
+}
+.navbar-toggler {
+    z-index: 50;
+    position: absolute !important;
+    border: 0 !important;
+    right: 2rem;
+    top: 0.5rem;
+}
+.navbar-toggler p {
+    margin: 0;
+    font-size: 30px;
+    color: #fff;
+}
+.navbar-toggler:hover {
+    box-shadow: 0 0 0 0;
+    background-color: #000;
+}
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0 !important;
+}
+.nav-link:hover {
+    color: #fff !important;
+}
+.navbar__items {
+    transition: 0.1s ease-in-out !important;
+}
+.navbar__items a {
+    margin: 0px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.596) !important;
+    font-size: 18px !important;
+    text-decoration: none !important;
+}
+.Exclamation-icon {
+    font-size: 24px;
+    color: black;
+}
+.content__area {
+    display: flex;
+    width: 100vw;
+    height: calc(100vh - var(--navbar-height));
+    background: rgb(255, 255, 255);
+}
+.main__content {
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - var(--sidebar-width));
+    padding: 2rem 2rem 2rem 2rem;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+.register__form{
+    padding: 0;
+    margin: 0;
+    height: 80%;
+    display: flex;
+    align-items: center;
+}
+.sidebar {
+    display: inline-flex;
+    flex-direction: column;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--navbar-height));
+    padding: 3rem 0 0 3rem;
+    position: relative;
+    z-index: 1;
+}
+.sidebar__item {
+    margin: 2px 0px 2px 0px;
+    background: #4d4d4d;
+    height: 35px;
+    line-height: 35px;
+    font-weight: bold;
+    transition: 0.1s ease all;
+    cursor: pointer;
+}
+.sidebar__item:hover {
+    background: #b3b3b3;
+}
+.sidebar__item i {
+    font-size: 24px;
+}
+.sidebar a {
+    margin-left: 0.5rem;
+    padding-left: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.sidebar a:hover {
+    color: #fff;
+}
+/*Forms*/
+.forms {
+    padding: 10px;
+    // background: rgb(214, 249, 247);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.forms__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background: #fff;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    outline: 0;
+}
+.forms__header {
+    background: #388e3c;
+    color: #fff;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-top-left-radius: calc(0.5rem - 1px);
+    border-top-right-radius: calc(0.5rem - 1px);
+}
+.forms__label {
+    display: block;
+    padding: 5px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.forms__group-input {
+    position: relative;
+}
+.forms__input {
+    width: 100%;
+    background: #fff;
+    border: 3px solid lightgray;
+    border-radius: 5px;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px 0 10px;
+    transition: 0.3s ease all;
+}
+.forms__input:focus {
+    border: 3px solid #0075ff;
+    outline: none;
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+}
+.forms__input-error {
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-left: 5px;
+    display: none;
+}
+.forms__input-error-active {
+    display: block;
+}
+.forms__validation-state {
+    position: absolute;
+    right: 5px;
+    bottom: 3px;
+    z-index: 100;
+    font-size: 16px;
+    opacity: 0;
+}
+.forms__message,
+.forms__group-btn-submit,
+.forms__addres {
+    grid-column: span 2;
+}
+.forms__message {
+    height: 45px;
+    line-height: 45px;
+    background: #f66060;
+    padding: 0 15px;
+    border-radius: 3px;
+    display: none;
+}
+.forms__message-active {
+    display: block;
+}
+.forms__message p {
+    color: #000;
+    font-size: 18px;
+    margin: 0;
+}
+.forms__group-btn-submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.forms__btn-fixed{
+    position: fixed;
+    bottom: .5rem;
+    z-index: 10;
+}
+.forms__btn {
+    height: 35px;
+    line-height: 35px;
+    width: 30%;
+    background: #0d6efd;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.1s ease all;
+}
+.forms__btn:hover {
+    background: #0b5ed7;
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 1);
+}
+.forms__message-success {
+    font-size: 14px;
+    color: #119200;
+    display: none;
+}
+.forms__message-success-active {
+    display: block;
+}
+
+/*validations*/
+.forms__group-correct .forms__validation-state {
+    color: #1ed12d;
+    opacity: 1;
+}
+.forms__group-incorrect .forms__label {
+    color: #bb2929;
+}
+.forms__group-incorrect .forms__validation-state {
+    color: #bb2929;
+    opacity: 1;
+}
+.forms__group-incorrect .forms__input {
+    border: 3px solid #bb2929;
+}
+/* --- media query --- */
+@media screen and (max-width: 800px) {
+    .forms {
+        grid-template-columns: 1fr;
+    }
+    .forms__message,
+    .forms__group-btn-submit,
+    .forms_address {
+        grid-column: 1;
+    }
+}
+.lowcase{
+    text-transform: lowercase;
+}
+.upcase{
+    text-transform: uppercase;
+}
