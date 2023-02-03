@@ -17,14 +17,14 @@ class UbigeoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'add_country' => 'required',
-            'add_department' => 'required',
-            'add_municipality' => 'required',
+            'country' => 'required',
+            'department' => 'required',
+            'municipality' => 'required',
         ]);
         $ubigeo_data = new Ubigeo;
-        $ubigeo_data->ubigeo_country = $request->input('add_country');
-        $ubigeo_data->ubigeo_department = $request->input('add_department');
-        $ubigeo_data->ubigeo_municipality = $request->input('add_municipality');
+        $ubigeo_data->ubigeo_country = $request->input('country');
+        $ubigeo_data->ubigeo_department = $request->input('department');
+        $ubigeo_data->ubigeo_municipality = $request->input('municipality');
         $ubigeo_data->save();
         return redirect()->back()->with('status', 'Registro Añadido Exitosamente.');
     }

@@ -1,66 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MS-Directory
+Sistema de Marketing módulo Directorio, podrá realizar las funciones de vizualizar, agregar, editar y eliminar registros en las cinco tablas presentes en la base de datos. Entre las opciones disponibles estan:
+1. [Ubigeo](#Ubigeo)
+2. [Personas](#Personas)
+3. [Instituto-Persona](#Instituto-Persona)
+4. [Usuarios](#Usuarios)
+5. [Institución](#Institución)
+## Vistas del sistema Usuario Administrador
+* Se dispone del menú opciones en el lateral izquierdo, la barra de navegación en la parte superior de la pantalla
+<p align="center"><img src="public/assets/01main_portal.png" width="80%"><br>
+Pantalla principal de la vista del administrador</p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 
+* Se muestra el formulario con las credenciales **email** y **contraseña**
+<p align="center"><img src="public/assets/02login_view.png" width="80%"><br>
+Vista de inicio de sesión</p>
 
-## About Laravel
+## 
+* Se muestra el formulario para el registro de una nueva persona y usuario.
+<p align="center"><img src="public/assets/03register_view.png" width="80%"><br>
+Vista de registro</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Ubigeo
+* Se muestra los registros de la tabla *ubigeo y se dividen en paginas de 5 registros.
+<p align="center"><img src="public/assets/04ubigeo_view.png" width="80%"><br></p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Agregar Ubigeo
+* Se muestra el formulario para registrar los datos de un nuevo ubigeo.
+<p align="center"><img src="public/assets/05add_ubigeo_view.png" width="80%"><br></p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Editar ubigeo
+* Se muestra el formulario para modificar los datos de un ubigeo existente.
+<p align="center"><img src="public/assets/06edit_ubigeo_view.png" width="80%"><br>
+Vista de editar ubigeo</p>
 
-## Learning Laravel
+### Eliminar ubigeo
+* Se despliega una ventaja de confirmación para confirmar el borrado del registro.
+<p align="center"><img src="public/assets/07delete_ubigeo_view.png" width="80%"><br></p>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# persona
+* Se muestran los registros de la tabla personas.
+<p align="center"><img src="public/assets/08person_view.png" width="80%"><br></p>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## agregar persona
+* Se despliega un formulario con los datos necesarios para agregar un registro.
+<p align="center"><img src="public/assets/09add_person_view.png" width="80%"><br></p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## editar persona
+* Se despliega un formulario para editar un registro de persona.
+<p align="center"><img src="public/assets/10person_edit_view.png" width="80%"><br></p>
 
-## Laravel Sponsors
+# instituto - persona
+* Se muestran los registros existentes.
+<p align="center"><img src="public/assets/11institution_person_view.png" width="80%"><br></p>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## agregar instituto - persona
+* Se despliega un formulario para agregar un registro.
+<p align="center"><img src="public/assets/12inst_person_add.png" width="80%"><br></p>
 
-### Premium Partners
+## editar instituto - persona
+* Se despliega un formulario para editar un registro.
+<p align="center"><img src="public/assets/13inst_person_edit.png" width="80%"><br></p>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+# usuario
+* Se muestran los registros de usuarios existentes.
+<p align="center"><img src="public/assets/14user_view.png" width="80%"><br></p>
 
-## Contributing
+## agregar instituto - persona
+* Se despliega un formulario para agregar un registro.
+<p align="center"><img src="public/assets/15user_add.png" width="80%"><br></p>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## editar instituto - persona
+* Se despliega un formulario para editar un registro.
+<p align="center"><img src="public/assets/16user_edit.png" width="80%"><br></p>
 
-## Code of Conduct
+# institución
+* Se muestran los registros de institutos existentes.
+<p align="center"><img src="public/assets/17institution_view.png" width="80%"><br></p>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## agregar institución
+* Se despliega un formulario para agregar un registro.
+<p align="center"><img src="public/assets/18inst_add.png" width="80%"><br></p>
 
-## Security Vulnerabilities
+## editar institución
+* Se despliega un formulario para editar un registro.
+<p align="center"><img src="public/assets/19inst_edit.png" width="80%"><br></p>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Validaciones
+* cada formulario cuenta con las validaciones correspondientes para que no se puedan ingresar datos inesperados en los registros.
+<p align="center"><img src="public/assets/20validation.png" width="80%"><br></p>

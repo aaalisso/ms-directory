@@ -33,12 +33,12 @@
                 <ul class=""></ul>
                 <ul class="navbar-nav me-auto">
                     @guest
-                    @if(Route::has('login'))
+                    @if(Request::url('login'))
                     <li class="nav-item">
                         <a class="nav-link" href="login" class="">{{__('Login')}}</a>
                     </li>
                     @endif
-                    @if(Route::has('register'))
+                    @if(Request::url('register'))
                     <li class="nav-item">
                         <a class="nav-link" href="register" class="">{{__('Register')}}</a>
                     </li>

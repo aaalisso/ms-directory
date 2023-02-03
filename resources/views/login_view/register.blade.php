@@ -1,17 +1,21 @@
 @extends('layout.layout')
 @section('content')
 
+@if(session('status'))
+<div class="alert alert-success">{{session('status')}}</div>
+@endif
+
 <div class="modal-dialog">
     <div class="card">
         <div class="forms__content">
             <h3 class="card-header">Register</h3>
-            <form action="{{ url ('add-ubigeo') }}" class="forms" name="forms" id="forms" method="POST">
+            <form action="{{url ('add-register') }}" class="forms" name="forms" id="forms" method="POST">
                 @csrf
                 <!-- Group: name -->
                 <div class="forms__group" id="group__name">
                     <label for="name" class="forms__label">{{__('Name')}}</label>
                     <div class="forms__group-input">
-                        <input type="text" class="forms__input upcase" required name="name" id="name" autocapitalize="on">
+                        <input type="text" class="forms__input upcase" name="name" id="name" autocapitalize="on">
                         <i class="forms__validation-state bi bi-x-circle-fill"></i>
                     </div>
                     <p class="forms__input-error">Este campo solo puede contener letras</p>
@@ -27,7 +31,7 @@
                 </div>
                 <!-- Group: identity document -->
                 <div class="forms__group" id="group__iddoc">
-                    <label for="iddoc" class="forms__label">{{__('identity Document Number')}}</label>
+                    <label for="iddoc" class="forms__label">{{__('id Document Number')}}</label>
                     <div class="forms__group-input">
                         <input type="text" class="forms__input" name="iddoc" id="iddoc">
                         <i class="forms__validation-state bi bi-x-circle-fill"></i>
@@ -83,14 +87,14 @@
                 <div class="forms__group" id="group__profile_picture">
                     <label for="profile_picture" class="forms__label">{{__('Profile picture')}}</label>
                     <div class="forms__group-input">
-                        <input type="file" class="forms__input" name="profile_picture" id="profile_picture" placeholder="www.cti.domain.nnn">
+                        <input type="text" class="forms__input" name="profile_picture" id="profile_picture" placeholder="www.cti.domain.nnn">
                         <i class="forms__validation-state bi bi-x-circle-fill"></i>
                     </div>
                     <p class="forms__input-error">Debes ingresar un dirección valida</p>
                 </div>
                 <!-- Group: birthday date -->
                 <div class="forms__group" id="group__birthday">
-                    <label for="birthday" class="forms__label">{{__('Address')}}</label>
+                    <label for="birthday" class="forms__label">{{__('birthday')}}</label>
                     <div class="forms__group-input">
                         <input type="date" class="forms__input" name="birthday" id="birthday">
                         <i class="forms__validation-state bi bi-x-circle-fill"></i>
@@ -114,7 +118,7 @@
                             <option value="{{$data->ubigeo_id}}">{{$data->ubigeo}}</option>
                             @endforeach
                         </select>
-                        <input type="text" class="hidden" name="ubigeo_id" id="ubigeo_id">
+                        <!-- <input type="text" class="forms__input" name="ubigeo_id" id="ubigeo_id"> -->
                         <i class="forms__validation-state bi bi-x-circle-fill"></i>
                     </div>
                     <p class="forms__input-error">Debes ingresar un dirección valida</p>
@@ -129,5 +133,5 @@
     </div>
 </div>
 @vite(['resources/js/forms.js'])
-<!-- <script src="resources/js/forms.js"></script> -->
+
 @endsection

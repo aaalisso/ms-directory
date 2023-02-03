@@ -51,16 +51,18 @@ Route::get('edit-institution_person/{id}',[Institution_PersonController::class, 
 Route::put('update-institution_person',[Institution_PersonController::class, 'update']);
 Route::delete('delete-institution_person',[Institution_PersonController::class, 'destroy']);
 //Login
-Route::get('/',[LoginController::class, 'home'])->name('home');
-Route::get('login',[LoginController::class, 'index'])->name('login');
-Route::post('postlogin',[LoginController::class, 'login'])->name('postlogin');
+Route::get('/',[LoginController::class, 'home']);
+Route::get('login',[LoginController::class, 'index']);
+Route::get('postlogin',[LoginController::class, 'login']);
 //register
-Route::get('register',[RegisterController::class, 'index'])->name('register');
+Route::get('register',[RegisterController::class, 'index']);
+Route::post('add-register',[RegisterController::class, 'store']);
 
 
-// Route::get('/', function () {
-//     return view('home');
-// });
+
+Route::get('/1', function () {
+    return view('readme');
+});
 
 
 
