@@ -1,4 +1,5 @@
 @extends('layout.layout')
+@section('title', 'Register')
 @section('content')
 
 @if(session('status'))

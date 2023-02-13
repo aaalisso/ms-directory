@@ -34,7 +34,8 @@ class RegisterController extends Controller
             'password' => 'required',
         ]);
         
-        $persondata = new Person;        
+        $persondata = new Person;
+        $userdata = new User;
         $persondata->person_name = $request->input('name');
         $persondata->person_surname = $request->input('surname');
         $persondata->person_email = $request->input('email');
@@ -45,10 +46,8 @@ class RegisterController extends Controller
         $persondata->person_profile_picture = $request->input('profile_picture');
         $persondata->person_birthday_date = $request->input('birthday');
         $persondata->ubigeo_id = $request->input('ubigeo');
-        $persondata->save();     
-
-        $userdata = new User;
-        $userdata->user_username = $persondata->person_email;
+        $persondata->save();        
+        
         $userdata->user_password = Hash::make($request->input('password'));
         $userdata->user_state = '1';
         $userdata->person_id = $persondata->person_id;

@@ -15,17 +15,21 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     public $timestamps = false;
     protected $table = 'user';
-    protected $username = 'user_username';
     protected $guarded = [
         'user_id',
-        'user_created_at' => 'created_at',
-        'user_updated_at' => 'updated_at',
+        'user_created_at'=>'created_at',
+        'user_updated_at'=>'updated_at',
+        'user_type'
     ];
     protected $primaryKey = 'user_id';
     protected $fillable = [
-        'email',
-        'password',
+        'user_password',
         'user_state',
         'person_id',
-    ];
+    ];    
+
+    public function person_email()
+    {
+        return $this->belongsTo('App\Person');
+    }
 }

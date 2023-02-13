@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UbigeoController;
@@ -9,8 +8,6 @@ use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\Institution_PersonController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\LogoutController;
-use Faker\Guesser\Name;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,31 +52,22 @@ Route::put('update-institution_person', [Institution_PersonController::class, 'u
 Route::delete('delete-institution_person', [Institution_PersonController::class, 'destroy']);
 
 
-// Route::group(['middleware' => ['guest']], function () {
-// });
-
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-
-//Login
-Route::get('login', [LoginController::class, 'show'])->name('login');
-// Route::get('checklogin', [LoginController::class, 'index']);
-// Route::post('dashboard', [LoginController::class, 'authenticate'])->middleware('auth')->name('authenticate');
-Route::post('dashboard', [LoginController::class, 'authenticate'])->name('authenticate');
-//postlogin
-Route::get('admin', [LoginController::class, 'admin'])->name('admin');
-
-
-//register
-Route::get('register', [RegisterController::class, 'index']);
-Route::post('add-register', [RegisterController::class, 'store']);
+Route::group(['middleware' => ['guest']], function () {
+    //Login
+    Route::get('/', [LoginController::class, 'home'])->name('home');
+    Route::get('login', [LoginController::class, 'index']);
+    Route::post('dashboard', [LoginController::class, 'login'])->name('login');
+    //register
+    Route::get('register', [RegisterController::class, 'index']);
+    Route::post('add-register', [RegisterController::class, 'store']);
+});
 
 
 Route::group(['middleware' => ['auth']], function () {
     /**
      * Logout Route
      */
-    Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
+    Route::get('logout', 'LogoutController@perform')->name('logout.perform');
 });
 
 

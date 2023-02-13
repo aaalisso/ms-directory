@@ -1,39 +1,54 @@
 @extends('layout.layout')
 @section('content')
-<main class="login-form">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card">
-                    <h3 class="card-header text-center">Login</h3>
-                    <div class="card-body">
-                        <form method="POST" action="{{url('login')}}">
-                            @csrf
-                            <div class="form-group mb-3">
-                                <input type="text" placeholder="usuario@correo.com" id="email" class="form-control lowcase" name="email" autofocus>
-                                @if ($errors->has(__('email')))
-                                <span class="text-danger">{{$errors->first('email')}}</span>
-                                @endif
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="password" placeholder="********" id="password" class="form-control" name="password" autocomplete="on">
-                                @if ($errors->has('password'))
-                                <span class="text-danger">{{$errors->first('password')}}</span>
-                                @endif
-                            </div>
-                            @if(\Session::has('message'))
-                            <div class="alert alert-info">
-                                {{\Session::get('message')}}
-                            </div>
-                            @endif
-                            <div class="d-grid mx-auto">
-                                <button type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
-                            </div>
-                        </form>
-                    </div>
+@vite(['resources/css/main_background.css'])
+<div class="login-box">
+    <div class="left-box">
+        <h1>{{__('Sign in')}}</h1>
+        <form action="{{route('authenticate')}}" method="POST">
+            @csrf
+            <label for="username">Correo</label>
+            <div class="forms-group">
+                <div class="input-icon-box">
+                    <span class="input-icon"><i class="bi bi-envelope-at-fill"></i></span>
                 </div>
+                <input id="email" name="email" type="text" class="input-box" placeholder="correo@gmail.com" autocomplete="off">
             </div>
+            <label for="password">Contraseña</label>
+            <div class="forms-group">
+                <div class="input-icon-box">
+                    <span class="input-icon"><i class="bi bi-key-fill"></i></i></span>
+                </div>
+                <input id="password" name="password" type="password" class="input-box" placeholder="**********" autocomplete="off">
+            </div>
+            <button type="submit" class="button _2">
+                <span>{{__('Sign in')}}</span>
+                <div class="back"></div>
+            </button>
+
+        </form>
+    </div>
+    <div class="right-box">
+        <span class="right-title">Inicia Sesión con</span>
+        <div class="social-btn-group">
+            <a class="social-btn btn-twitter" href="#">
+                <i class="bi bi-twitter"></i>
+                <p>Twitter</p>
+            </a>
+            <a class="social-btn btn-google" href="#">
+                <i class="bi bi-google"></i>
+                <p>Google</p>
+            </a>
+            <a class="social-btn btn-facebook" href="#">
+                <i class="bi bi-facebook"></i>
+                <p>Google</p>
+            </a>
         </div>
     </div>
-</main>
+
+    <div class="or">OR</div>
+
+
+    </a>
+</div>
+</div>
 @endsection

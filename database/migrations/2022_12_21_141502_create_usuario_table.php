@@ -16,12 +16,12 @@ return new class extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->increments('user_id');
-            $table->string('user_password', 255);
+            $table->string('email', 100)->unique();
+            $table->string('password', 255);
             $table->string('user_state', 50);
             $table->unsignedInteger('person_id')->unique();
             $table->timestamp("user_created_at")->useCurrent();
             $table->timestamp("user_updated_at")->useCurrent()->useCurrentOnUpdate();
-            $table->foreign('person_id')->references('person_id')->on('person');
         });
     }
 

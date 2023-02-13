@@ -1,0 +1,11 @@
+
+html,
+body {
+    background-image: linear-gradient(
+            rgba(255, 230, 3, 0.3),
+            rgba(0, 0, 0, 0.5)
+        ),
+        url("login_assets/login_background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
