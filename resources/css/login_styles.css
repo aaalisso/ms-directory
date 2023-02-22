@@ -12,7 +12,7 @@
     color: rgba(255, 255, 255, 0.822);
   }
 
-nav,
+/* nav,
 body,
 div,
 h1,
@@ -23,15 +23,8 @@ h5,
 a,
 i {
     font-family: Montserrat-Regular;
-}
+} */
 
-html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-}
 :root {
     --margin-top: 3.5rem;
 }
@@ -43,7 +36,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
 }
-.login-box {
+.log-box-sections {
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -226,4 +219,3 @@ body {
         grid-template-columns: 1fr;
     }
 }
-

@@ -15,7 +15,7 @@ class LoginController extends Controller
 {
     public function admin()
     {
-        return view('admin_view.dashboard');
+        return view('admin_view.main');
     }
 
     public function show()

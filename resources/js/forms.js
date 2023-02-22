@@ -1,5 +1,7 @@
 const forms = document.getElementById("forms");
-
+const addmodal = document.getElementById("addRecord");
+const editmodal = document.getElementById("editRecord");
+const deletemodal = document.getElementById("deleteRecord");
 const inputs = document.querySelectorAll("#forms input");
 
 const patterns = {
@@ -49,7 +51,6 @@ const validate = (e) => {
 
 const validationField = (expresion, input, field) => {
     if (expresion.test(input.value)) {
-        console.log("si");
         document
             .getElementById(`group__${field}`)
             .classList.remove("forms__group-incorrect");
@@ -66,7 +67,6 @@ const validationField = (expresion, input, field) => {
             .querySelector(`#group__${field} .forms__input-error`)
             .classList.remove("forms__input-error-active");
     } else {
-        console.log("no");
         document
             .getElementById(`group__${field}`)
             .classList.add("forms__group-incorrect");
@@ -85,11 +85,21 @@ const validationField = (expresion, input, field) => {
     }
 };
 
+const resetform = (e) => {
+    document.getElementById("forms").reset();
+};
+const resetaform = (e) => {
+    document.getElementById("aforms").reset();
+};
 inputs.forEach((input) => {
     input.addEventListener("keyup", validate);
     input.addEventListener("blur", validate);
 });
 
-forms.addEventListener("submit", (e) => {
-    // e.preventDefault();
-});
+// addmodal.addEventListener("hidden.bs.modal", resetform);
+// editmodal.addEventListener("hidden.bs.modal", resetaform);
+
+// forms.addEventListener("submit", (e) => {
+//     e.preventDefault();
+// });
+

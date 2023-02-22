@@ -1,7 +1,8 @@
-@extends('load_table_layout')
+@extends('template')
 
 @section('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
 @endsection
 
 @section('table_title')
@@ -10,10 +11,18 @@
 
 @section('head_data')
 <tr>
-    <th>{{__('actions')}}</th>
-    <th>{{__('country')}}</th>
-    <th>{{__('department')}}</th>
-    <th>{{__('municipality')}}</th>
+    <th>
+        {{__('actions')}}
+    </th>
+    <th>
+        {{__('country')}}
+    </th>
+    <th>
+        {{__('department')}}
+    </th>
+    <th>
+        {{__('municipality')}}
+    </th>
 </tr>
 @endsection
 
@@ -33,6 +42,10 @@
     <td>{{ $item->ubigeo_municipality}}</td>
 </tr>
 @endforeach
+@endsection
+
+@section('pagination')
+{!! $ubigeo_data->links() !!}
 @endsection
 
 @section('modals')
@@ -143,9 +156,11 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('js')
+@vite(['resources/js/forms.js'])
 <script>
     $(document).ready(function() {
         $(document).on('click', '.editbtn', function() {
@@ -160,6 +175,17 @@
                     $('#edit_municipality').val(response.ubigeo.ubigeo_municipality);
                 }
             });
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#record_data').DataTable({
+            "lenghMenu": [[5,10,50,-1], [5,10,50,"All"]]
         });
     });
 </script>

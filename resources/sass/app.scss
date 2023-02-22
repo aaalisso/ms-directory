@@ -1,14 +1,21 @@
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
-
 // Variables
 @import 'variables';
-@import 'login_btn_styles';
-@import 'social_btn_styles';
-@import 'sidebar_styles';
+@import 'btn_styles';
+@import 'table_styles';
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
-
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "~admin-lte/dist/css/adminlte.css";
+
+$fa-font-path:"~fa/../webfonts";
+@import '~fa/brands';
+@import '~fa/regular';
+@import '~fa/solid';
+@import '~fa/fontawesome';
+
+
+
 

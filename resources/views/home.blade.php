@@ -3,7 +3,6 @@
 
 @section('content')
 <div class="home-container">
-
     <div class="ms-title">
         <p>MS-DIRECTORY</p>
     </div>

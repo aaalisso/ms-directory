@@ -1,69 +1,55 @@
-@extends('layout.layout')
-@section('title', 'Persona')
+@extends('load_table_layout')
 
-@section('content')
-<!-- Main -->
-@if(session('status'))
-<div class="alert alert-success">{{session('status')}}</div>
-@endif
-<div class="container-sm">
-    <div class="card">
-        <h5 class="card-header">Lista de ubigeo</h5>
-        <div class="card-body">
-            <p>
-                <button class="btn btn-primary add btn-sm" id="add_person" name="add_person" data-bs-toggle="modal" data-bs-target="#addPerson">Agregar Persona</button>
-            </p>
-            <hr>
-            <div class="card-text">
-                <table id="dataTable" class="custom-table table-responsive">
-                    <thead>
-                        <tr class="custom-row head center">
-                            <th class="column1 actions-pad pad s" data-column="column1">{{__('actions')}}</th>
-                            <th class="column2 pad lg" data-column="column2">{{__('name')}}</th>
-                            <th class="column3 pad lg" data-column="column3">{{__('surname')}}</th>
-                            <th class="column4 pad lg" data-column="column4">{{__('email')}}</th>
-                            <th class="column5 pad lg" data-column="column5">{{__('id_doc')}}</th>
-                            <th class="column6 pad lg" data-column="column6">{{__('address')}}</th>
-                            <th class="column7 pad lg" data-column="column7">{{__('phone')}}</th>
-                            <th class="column8 pad lg" data-column="column8">{{__('web_page')}}</th>
-                            <th class="column9 pad lg" data-column="column9">{{__('photo')}}</th>
-                            <th class="column10 pad lg" data-column="column10">{{__('birth_date')}}</th>
-                            <th class="column11 pad lg" data-column="column11">{{__('ubigeo')}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($person_data as $item)
-                        <tr class="custom-row center">
-                            <td class="column1 pad btn-group-xs" data-column="column1">
-                                <button data-bs-toggle="modal" data-bs-target="#editPerson" value="{{$item->person_id}}" class="btn btn-success editbtn">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#deletePerson" value="{{$item->person_id}}" class="btn btn-danger deletebtn">
-                                    <i class="bi bi-x-square"></i>
-                                </button>
-                            </td>
-                            <td class="column2 pad" data-column="column2">{{$item->person_name}}</td>
-                            <td class="column3 pad" data-column="column3">{{$item->person_surname}}</td>
-                            <td class="column4 pad" data-column="column4">{{$item->person_email}}</td>
-                            <td class="column5 pad" data-column="column5">{{$item->person_identity_document}}</td>
-                            <td class="column6 pad" data-column="column6">{{$item->person_address}}</td>
-                            <td class="column7 pad" data-column="column7">{{$item->person_phone}}</td>
-                            <td class="column8 pad" data-column="column8">{{$item->person_web_page}}</td>
-                            <td class="column9 pad" data-column="column9">{{$item->person_profile_picture}}</td>
-                            <td class="column10 pad" data-column="column10">{{$item->person_birthday_date}}</td>
-                            <td class="column11 pad" data-column="column11">{{$item->ubigeo_id}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <br>
-                <div class="d-flex">
-                    {!! $person_data->links() !!}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+@endsection
+
+@section('table_title')
+<h1>Lista Persona</h1>
+@endsection
+
+@section('head_data')
+<tr>
+    <th>{{__('actions')}}</th>
+    <th>{{__('name')}}</th>
+    <th>{{__('surname')}}</th>
+    <th>{{__('email')}}</th>
+    <th>{{__('id_doc')}}</th>
+    <th>{{__('address')}}</th>
+    <th>{{__('phone')}}</th>
+    <th>{{__('web_page')}}</th>
+    <th>{{__('photo')}}</th>
+    <th>{{__('birth_date')}}</th>
+    <th>{{__('ubigeo')}}</th>
+</tr>
+@endsection
+
+@section('row_data')
+@foreach($person_data as $item)
+<tr>
+    <td>
+        <button title="Actualizar" data-bs-toggle="modal" data-bs-target="#editRecord" value="{{$item->person_id}}" class="action-btn btn-success editbtn">
+            <i class="bi bi-pencil-square"></i>
+        </button>
+        <button title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteRecord" value="{{$item->person_id}}" class="action-btn btn-danger deletebtn">
+            <i class="bi bi-x-square"></i>
+        </button>
+    </td>
+    <td>{{$item->person_name}}</td>
+    <td>{{$item->person_surname}}</td>
+    <td>{{$item->person_email}}</td>
+    <td>{{$item->person_identity_document}}</td>
+    <td>{{$item->person_address}}</td>
+    <td>{{$item->person_phone}}</td>
+    <td>{{$item->person_web_page}}</td>
+    <td>{{$item->person_profile_picture}}</td>
+    <td>{{$item->person_birthday_date}}</td>
+    <td>{{$item->ubigeo_id}}</td>
+</tr>
+@endforeach
+@endsection
+
+@section('modals')
 <!-- Add Ubigeo Modal -->
 <div class="modal fade" id="addPerson" tabindex="-1" aria-labelledby="addPersonLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -143,7 +129,7 @@
             <form action="{{ url ('update-person') }}" method="POST" id="editPersonForm">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="edit_id" id="edit_id"/>
+                <input type="hidden" name="edit_id" id="edit_id" />
                 <div class="modal-body">
                     <div class="row md-form mb-2">
                         <div class="col-md-3">

@@ -133,6 +133,4 @@
         </div>
     </div>
 </div>
-@vite(['resources/js/forms.js'])
-
 @endsection

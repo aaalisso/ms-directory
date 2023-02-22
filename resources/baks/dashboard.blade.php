@@ -28,11 +28,11 @@
                 <p>PERSONAS</p>
             </a>
             <a class="sidebar-item-group inconless" href="institution_person">INSTITUTO - PERSONA</a>
-            <a class="sidebar-item-group" href="user"><i class="bi bi-people-fill"></i> USUARIOS</></a>
+            <a class="sidebar-item-group" href="user"><i class="bi bi-people-fill"></i> USUARIOS</a>
             <a class="sidebar-item-group" href="institution"><i class="bi bi-buildings"></i> INSTITUCIÓN</></a>
         </div>
     </div>
-    <div>
+    <div class="content-area">
         @yield('content-area')
     </div>
 </div>

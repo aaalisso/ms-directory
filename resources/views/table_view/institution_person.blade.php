@@ -1,59 +1,47 @@
-@extends('layout.layout')
-@section('title', 'Institución Persona')
+@extends('load_table_layout')
 
-@section('content')
-<!-- Main -->
-@if(session('status'))
-<div class="alert alert-success">{{session('status')}}</div>
-@endif
-<div class="container-sm">
-    <div class="card">
-        <h5 class="card-header">Lista</h5>
-        <div class="card-body">
-            <p>
-                <button class="btn btn-primary add btn-sm" id="add_register_btn" name="add_Register" data-bs-toggle="modal" data-bs-target="#add_Register">Nuevo Registro</button>
-            </p>
-            <hr>
-            <div class="card-text">
-                <table id="dataTable" class="custom-table table-responsive">
-                    <thead>
-                        <tr class="custom-row head center">
-                            <th class="column1 actions-pad pad s" data-column="column1">{{__('actions')}}</th>
-                            <th class="column2 pad lg" data-column="column2">{{__('institution_id')}}</th>
-                            <th class="column3 pad lg" data-column="column3">{{__('person_id')}}</th>
-                            <th class="column4 pad lg" data-column="column4">{{__('occupation')}}</th>
-                            <th class="column5 pad lg" data-column="column5">{{__('institutional_email')}}</th>
-                            <th class="column6 pad lg" data-column="column6">{{__('incorporation_date')}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($inst_pers_data as $item)
-                        <tr class="custom-row center">
-                            <td class="column1 pad btn-group-xs" data-column="column1">
-                                <button data-bs-toggle="modal" data-bs-target="#edit_Register" value="{{$item->id}}" class="btn btn-success editbtn">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#delete_Register" value="{{$item->id}}" class="btn btn-danger deletebtn">
-                                    <i class="bi bi-x-square"></i>
-                                </button>
-                            </td>
-                            <td class="column2 pad" data-column="column2">{{$item->institution_id}}</td>
-                            <td class="column3 pad" data-column="column3">{{$item->person_id}}</td>
-                            <td class="column4 pad" data-column="column4">{{$item->occupation}}</td>
-                            <td class="column5 pad" data-column="column5">{{$item->institutional_email}}</td>
-                            <td class="column6 pad" data-column="column6">{{$item->incorporation_date}}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <br>
-                <div class="d-flex">
-                    {!! $inst_pers_data->links() !!}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@section('css')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+@endsection
+
+@section('table_title')
+<h1>Lista Institución - Persona</h1>
+@endsection
+
+@section('head_data')
+<tr>
+    <th>{{__('actions')}}</th>
+    <th>{{__('institution_id')}}</th>
+    <th>{{__('person_id')}}</th>
+    <th>{{__('occupation')}}</th>
+    <th>{{__('institutional_email')}}</th>
+    <th>{{__('incorporation_date')}}</th>
+</tr>
+@endsection
+
+@section('row_data')
+@foreach($inst_pers_data as $item)
+<tr>
+    <td>
+        <button title="Actualizar" data-bs-toggle="modal" data-bs-target="#editRecord" value="{{$item->id}}" class="action-btn btn-success editbtn">
+            <i class="bi bi-pencil-square"></i>
+        </button>
+        <button title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteRecord" value="{{$item->id}}" class="action-btn btn-danger deletebtn">
+            <i class="bi bi-x-square"></i>
+        </button>
+    </td>
+    <td>{{$item->institution_id}}</td>
+    <td>{{$item->person_id}}</td>
+    <td>{{$item->occupation}}</td>
+    <td>{{$item->institutional_email}}</td>
+    <td>{{$item->incorporation_date}}</td>
+</tr>
+@endforeach
+@endsection
+
+
+
+@section('modals')
 <!-- Add Modal -->
 <div class="modal fade" id="add_Register" tabindex="-1" aria-labelledby="add_Register_Label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
