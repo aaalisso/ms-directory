@@ -28,6 +28,7 @@ class LoginController extends Controller
                 ->where('u.user_id', '=', $user_id)->first();
             // echo ($user_data);
             // exit();
+            //hola
             return view('admin_view.main')->with('user_info', $user_info);
         }
     }
