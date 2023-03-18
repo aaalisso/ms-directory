@@ -92,3 +92,5 @@ Route::group(['middleware' => ['auth']], function () {
 // Route::get('/1', function () {
 //     return view('readme');
 // });
+
+Route::get('/jmartinez', [HomeController::class, 'index'])->name('iiap');
