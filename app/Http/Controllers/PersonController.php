@@ -53,29 +53,29 @@ class PersonController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'add_name' => 'required',
-            'add_surname' => 'required',
-            'add_email' => 'required',
-            'add_identity_document' => 'required',
-            'add_address' => 'required',
-            'add_phone' => 'required',
-            'add_web_page' => 'required',
-            'add_profile_picture' => 'required',
-            'add_birthday_date' => 'required',
-            'ubigeo_id' => 'required',
+            'aname' => 'required',
+            'asurname' => 'required',
+            'aemail' => 'required',
+            'aiddoc' => 'required',
+            'aaddress' => 'required',
+            'aphone' => 'required',
+            'awebpage' => 'required',
+            'aphoto' => 'required',
+            'abirthdate' => 'required',
+            'ubigeoid' => 'required',
         ]);
         $id = $request->input('edit_id');
         $person = Person::find($id);
-        $person->person_name = $request->input('add_name');
-        $person->person_surname = $request->input('add_surname');
-        $person->person_email = $request->input('add_email');
-        $person->person_identity_document = $request->input('add_identity_document');
-        $person->person_address = $request->input('add_address');
-        $person->person_phone = $request->input('add_phone');
-        $person->person_web_page = $request->input('add_web_page');
-        $person->person_profile_picture = $request->input('add_profile_picture');
-        $person->person_birthday_date = $request->input('add_birthday_date');
-        $person->person_ubigeo_id = $request->input('add_ubigeo_id');
+        $person->person_name = $request->input('aname');
+        $person->person_surname = $request->input('asurname');
+        $person->person_email = $request->input('aemail');
+        $person->person_identity_document = $request->input('aiddoc');
+        $person->person_address = $request->input('aaddress');
+        $person->person_phone = $request->input('aphone');
+        $person->person_web_page = $request->input('awebpage');
+        $person->person_profile_picture = $request->input('aphoto');
+        $person->person_birthday_date = $request->input('abirthdate');
+        $person->person_ubigeo_id = $request->input('aubigeoid');
         $person->update();
         return redirect()->back()->with('status', 'Registro Actualizado Exitosamente.');
     }

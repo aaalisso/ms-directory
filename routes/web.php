@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -42,11 +43,15 @@ Route::get('edit-institution/{id}', [InstitutionController::class, 'edit']);
 Route::put('update-institution', [InstitutionController::class, 'update']);
 Route::delete('delete-institution', [InstitutionController::class, 'destroy']);
 //Person
-Route::get('user', [UserController::class, 'index']);
+Route::get('user', [UserController::class, 'index'])->name('user');
 Route::post('add-user', [UserController::class, 'store']);
 Route::get('edit-user/{id}', [UserController::class, 'edit']);
 Route::put('update-user', [UserController::class, 'update']);
-Route::delete('delete-user', [UserController::class, 'destroy']);
+Route::delete('delete-user/{id}', [UserController::class, 'delete']);
+Route::get('user/get-roles/{id}', [UserController::class, 'get_roles'])->name('getroles');
+Route::put('user/change_role/{id}', [UserController::class, 'change']);
+Route::get('user/show_add_role', [UserController::class, 'show_add_role']);
+Route::post('user/add_role', [UserController::class, 'add_role']);
 //Person
 Route::get('institution_person', [Institution_PersonController::class, 'index']);
 Route::post('add-institution_person', [Institution_PersonController::class, 'store']);

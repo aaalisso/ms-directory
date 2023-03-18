@@ -1,7 +1,123 @@
-@extends('load_table_layout')
+@extends('layout.load_table')
+
+@section('title', 'Institución Persona')
 
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+@endsection
+
+@section('forms')
+<div id="add_record_box" class="collapse">
+    <form id="aform" action="{{url ('add-institution_person')}}" class="needs-validation" novalidate method="POST">
+        @csrf
+        <div class="crud-content">
+            <div class="col">
+                <label for="ainstitutionid">{{__('Institution_id')}}</label>
+                <input type="number" name="ainstitutionid" id="ainstitutionid" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete or enter a valid password
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="apersonid">{{__('Person_id')}}</label>
+                <input type="number" name="apersonid" id="apersonid" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="aoccupation">{{__('Occupation')}}</label>
+                <input type="number" name="aoccupation" id="aoccupation" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="ainstitutionalemail">{{__('Institutional email')}}</label>
+                <input type="text" name="ainstitutionalemail" id="ainstitutionalemail" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="alogo">{{__('Logo')}}</label>
+                <input type="text" name="alogo" id="alogo" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="aubigeoid">{{__('Ubigeo_id')}}</label>
+                <input type="number" name="aubigeoid" id="aubigeoid" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+        </div>
+        <div class="row-md" style="display: flex; justify-content: center;">
+            <button type="submit" value="submit" class="btn btn-primary" style="width: 20rem;">{{__('save')}}</button>
+        </div>
+    </form>
+</div>
+
+<div id="update_record_box" class="collapse">
+    <form id="uform" action="{{url ('update-institution_person')}}" class="needs-validation" novalidate method="POST">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="record_id" id="record_id">
+        <div class="crud-content">
+        <div class="col">
+                <label for="uname">{{__('Name')}}</label>
+                <input type="text" name="uname" id="uname" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete or enter a valid password
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="uaddress">{{__('Address')}}</label>
+                <input type="text" name="uaddress" id="uaddress" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="uphone">{{__('Phone')}}</label>
+                <input type="number" name="uphone" id="uphone" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uwebpage">{{__('Web Page')}}</label>
+                <input type="text" name="uwebpage" id="uwebpage" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="ulogo">{{__('Logo')}}</label>
+                <input type="text" name="ulogo" id="ulogo" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uubigeoid">{{__('Ubigeo_id')}}</label>
+                <input type="number" name="uubigeoid" id="uubigeoid" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+        </div>
+        <div class="row-md" style="display: flex; justify-content: center;">
+            <button type="submit" value="submit" class="btn btn-success" style="width: 20rem;">{{__('update')}}</button>
+        </div>
+    </form>
+</div>
 @endsection
 
 @section('table_title')
@@ -39,135 +155,7 @@
 @endforeach
 @endsection
 
-
-
-@section('modals')
-<!-- Add Modal -->
-<div class="modal fade" id="add_Register" tabindex="-1" aria-labelledby="add_Register_Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="add_Register_Label">Ingrese datos de nuevo registro</h5>
-            </div>
-            <form action="{{ url ('add-institution_person') }}" method="POST" id="add_Form">
-                @csrf
-                <div class="modal-body">
-                    <div class="row md-form mb-2">
-                        <div class="col-md-3">
-                            <label for="">{{__('institution_id')}}</label>
-                            <input type="text" name="add_institution_id" id="add_institution_id" required class="form-control">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="">{{__('person_id')}}</label>
-                            <input type="text" name="add_person_id" id="add_person_id" required class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">{{__('occupation')}}</label>
-                            <input type="text" name="add_occupation" id="add_occupation" required class="form-control">
-                        </div>
-                    </div>
-                    <div class="row md-form mb-2">
-                        <div class="col-md-3">
-                            <label for="">{{__('institutional_email')}}</label>
-                            <input type="text" name="add_institutional_email" id="add_institutional_email" required class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">{{__('incorporation_date')}}</label>
-                            <input type="text" name="add_incorporation_date" id="add_incorporation_date" required class="form-control" placeholder="2023-01-22">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{__('close')}}</button>
-                        <button type="submit" class="btn btn-primary">{{__('save')}}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end Add Modal-->
-
-<!-- Edit Modal -->
-<div class="modal fade" id="edit_Register" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editLabel">Actualizar datos</h5>
-            </div>
-            <form action="{{ url ('update-institution_person') }}" method="POST" id="edit_Form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="edit_id" id="edit_id">
-                <div class="modal-body">
-                    <div class="row md-form mb-2">
-                        <div class="col-md-3">
-                            <label for="">{{__('name')}}</label>
-                            <input type="text" name="edit_institution_id" id="edit_institution_id" required class="form-control">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="">{{__('surname')}}</label>
-                            <input type="text" name="edit_person_id" id="edit_person_id" required class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">{{__('email')}}</label>
-                            <input type="text" name="edit_occupation" id="edit_occupation" required class="form-control">
-                        </div>
-                    </div>
-                    <div class="row md-form mb-2">
-                        <div class="col-md-3">
-                            <label for="">{{__('identity_document')}}</label>
-                            <input type="text" name="edit_institutional_email" id="edit_institutional_email" required class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">{{__('address')}}</label>
-                            <input type="text" name="edit_incorporation_date" id="edit_incorporation_date" required class="form-control" placeholder="2023-01-22">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{__('close')}}</button>
-                        <button type="submit" class="btn btn-primary">{{__('edit')}}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end Edit Ubigeo Modal -->
-
-<!-- Delete Ubigeo Modal -->
-<div class="modal fade" id="delete_Register" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ url ('delete-institution_person') }}" method="POST" id="delete_Form">
-                @csrf
-                @method('DELETE')
-
-                <input type="hidden" name="delete_id" id="delete_id">
-
-                <h5 class="message center" id="deletePersonLabel">¿Desea eliminar el registro?</h5>
-                <div class="modal-footer btn-group center">
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">{{__('close')}}</button>
-                    <button type="submit" class="btn btn-primary btn-sm">{{__('delete')}}</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end Delete Ubigeo Modal -->
-
-@endsection
-
-@section('scripts')
-<script>
-    $('#add_Register').on('hidden.bs.modal', function() {
-        document.getElementById("add_Form").reset();
-    })
-
-    $('#edit_Register').on('hidden.bs.modal', function() {
-        document.getElementById("edit_Form").reset();
-    })
-</script>
-
+@section('js')
 <script>
     $(document).ready(function() {
         $(document).on('click', '.deletebtn', function() {
@@ -192,26 +180,64 @@
             });
         });
     });
-</script>
 
-<!-- table hover scripts-->
-<script type="text/javascript">
-    (function($) {
-        "use strict";
-        $('.pad').on('mouseover', function() {
-            var table1 = $(this).parent().parent().parent();
-            var table2 = $(this).parent().parent();
-            var column = $(this).data('column') + "";
-            $(table2).find("." + column).addClass('hov-column-custom');
-            $(table1).find(".custom-row.head ." + column).addClass('hov-column-head-custom');
+    $(document).ready(function() {
+        table.destroy();
+
+        table = $('#record_data').DataTable({
+            scrollX: true,
+            "lengthMenu": [
+                [5, 10, 50, -1],
+                [5, 10, 50, "All"]
+            ],
+            pagingType: 'full_numbers',
+            language: {
+                "decimal": ",",
+                "thousands": ".",
+                "info": "Mostrando _START_ al _END_ de _TOTAL_",
+                "infoEmpty": "Mostrando 0 de 0 - total 0",
+                "infoPostFix": "",
+                "infoFiltered": "(total registros: _MAX_)",
+                "loadingRecords": "Cargando...",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "searchPlaceholder": "Término de búsqueda",
+                "zeroRecords": "No se encontraron resultados",
+                "emptyTable": "Ningún dato disponible en esta tabla",
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                //only works for built-in buttons, not for custom buttons
+                "buttons": {
+                    "create": "Nuevo",
+                    "edit": "Cambiar",
+                    "remove": "Borrar",
+                    "copy": "Copiar",
+                    "csv": "fichero CSV",
+                    "excel": "tabla Excel",
+                    "pdf": "documento PDF",
+                    "print": "Imprimir",
+                    "colvis": "Visibilidad columnas",
+                    "collection": "Colección",
+                    "upload": "Seleccione fichero...."
+                },
+                "select": {
+                    "rows": {
+                        _: '%d filas seleccionadas',
+                        0: 'clic fila para seleccionar',
+                        1: 'una fila seleccionada'
+                    }
+                }
+            }
         });
-        $('.pad').on('mouseout', function() {
-            var table1 = $(this).parent().parent().parent();
-            var table2 = $(this).parent().parent();
-            var column = $(this).data('column') + "";
-            $(table2).find("." + column).removeClass('hov-column-custom');
-            $(table1).find(".custom-row.head ." + column).removeClass('hov-column-head-custom');
-        });
-    })(jQuery);
+    });
 </script>
 @endsection

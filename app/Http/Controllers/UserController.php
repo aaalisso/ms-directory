@@ -2,28 +2,147 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Person;
+use App\Models\Role;
 use App\Models\User;
+use App\Models\User_Role;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\Console\Completion\Output\ZshCompletionOutput;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $data = User::paginate(5);
+        $data = DB::table('user as u')->select(
+            'p.person_name',
+            'p.person_surname',
+            'u.user_state',
+            'u.user_id',
+        )
+            ->join('person as p', 'u.person_id', '=', 'p.person_id')->get();
         return view('table_view.user', compact('data'));
     }
+
+    public function get_roles($id)
+    {
+        try {
+            $user_info = DB::table('user as u')->select(
+                'p.person_name',
+                'p.person_surname',
+                'u.user_id',
+            )
+                ->join('person as p', 'u.person_id', '=', 'p.person_id')
+                ->where('u.user_id', $id)->first();
+
+            $fill = DB::table('user_role as ur')->select(
+                'ur.id',
+                'p.person_name',
+                'ur.state',
+                'ur.user_id',
+                'r.role_id as role_id',
+                'r.role_description as role_description'
+            )
+                ->join('role as r', 'ur.role_id', '=', 'r.role_id')
+                ->join('user as u', 'ur.user_id', '=', 'u.user_id')
+                ->join('person as p', 'p.person_id', '=', 'u.person_id')
+                ->where('ur.user_id', $id)->get();
+            // print_r($fill);
+            // print_r('-----------------------------------------------');
+            // print_r($user_info);
+            // exit();
+            return view('layout.role_table', compact('fill', 'user_info'));
+        } catch (\Exception $e) {
+            $user_info = DB::table('user as u')->select(
+                'p.person_name',
+                'p.person_surname',
+                'u.user_id',
+            )
+                ->join('person as p', 'u.person_id', '=', 'p.person_id')
+                ->where('u.user_id', $id)->first();
+            return view('layout.role_table', compact('person'));
+        }
+    }
+    public function change($ur_id)
+    {
+        $user_id = request('user_id');
+        $state = request('state');
+
+        $data = User_Role::find($ur_id);
+        $data->state = $state;
+        $data->update();
+
+        $getdata = $this->get_roles($user_id);
+        return response($getdata);
+    }
+
+    //start section en proceso
+    public function show_add_role()
+    {
+        $user_id = request('user_id');
+        $user_info = DB::table('user as u')->select(
+            'p.person_name',
+            'u.user_id as user_id'
+        )
+            ->join('person as p', 'u.person_id', '=', 'p.person_id')
+            ->where('u.user_id', $user_id)->first();
+        $rolelist = DB::table('role as r')
+            ->select('r.role_id', 'r.role_description')
+            ->leftJoin('user_role as ur', 'r.role_id', '=', 'ur.role_id')
+            ->whereNull('ur.role_id')->orderBy('r.role_id')->get();
+        // echo($rolelist);
+        // exit();
+        return view('layout.add_role', compact('user_info', 'rolelist'));
+    }
+    public function add_role(Request $request)
+    {
+        $record = $request->input('role');
+        $user_id = $request->input('user_id');
+        $record_lenght = count($record);
+
+        for ($index = 0; $index < $record_lenght; $index++) {
+            if (isset($record[$index])) {
+                $row = new User_Role();
+                $row->user_id = $user_id;
+                $row->role_id = $request->input("role.{$index}");
+                $row->state = '1';
+                // print_r('**fila: ');
+                // print_r(' *usuario: ');
+                // print_r($row->user_id);
+                // print_r(' *Role: ');
+                // print_r($row->role_id);
+                // print_r($record);
+                $row->save();
+            }
+        }
+        // exit();
+        return redirect()->intended('user');
+        // $getdata = $this->get_roles($user_id);
+        // return view($getdata);
+    }
+    //endsection en proceso
+
     public function store(Request $request)
     {
         $request->validate([
-            'add_password' => 'required',
-            'add_state' => 'required',
-            'add_person_id' => 'required',
+            'apassword' => 'required',
+            'astate' => 'required',
+            'apersonid' => 'required',
+            'aroleid' => 'required',
         ]);
+
+        $person = DB::table('person')->select('person_email')->where('person_id', '=', $request->apersonid)->first();
+
         $data = new User();
-        $data->user_password = Hash::make($request->input('add_password'));
-        $data->user_state = $request->input('add_state');
-        $data->person_id = $request->input('add_person_id');
+        $data->email = $person->person_email;
+        $data->password = Hash::make($request->input('apassword'));
+        $data->user_state = $request->input('astate');
+        $data->person_id = $request->input('apersonid');
+        $data->role_id = $request->input('aroleid');
         $data->save();
         return redirect()->back()->with('status', 'Registro Añadido Exitosamente.');
     }
@@ -35,24 +154,27 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'edit_password' => 'required',
-            'edit_state' => 'required',
-            'edit_person_id' => 'required',
+            'upassword' => 'required',
+            'ustate' => 'required',
+            'upersonid' => 'required',
         ]);
-        $id = $request->input('edit_id');
+        $id = $request->input('record_id');
         $data = User::find($id);
-        $data->user_password = Hash::make($request->input('edit_password'));
-        $data->user_state = $request->input('edit_state');
-        $data->person_id = $request->input('edit_person_id');
+        $data->password = Hash::make($request->input('upassword'));
+        $data->user_state = $request->input('ustate');
+        $data->person_id = $request->input('upersonid');
         $data->update();
         return redirect()->back()->with('status', 'Registro Actualizado Exitosamente.');
     }
 
-    public function destroy(Request $request)
+    public function delete($id)
     {
-        $id = $request->input('delete_id');
+        $user_role = DB::table('user_role')->where('user_id', $id)->get();
+        foreach ($user_role as $role) {
+            DB::table('user_role')->where('id', $role->id)->delete();
+        }
         $data = User::find($id);
         $data->delete();
-        return redirect()->back()->with('status', 'Registro Eliminado Exitosamente.');
+        return response()->json(['status', 'welcome']);
     }
 }

@@ -6,16 +6,24 @@ use App\Models\Ubigeo;
 use App\Models\Person;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
 
 class RegisterController extends Controller
 {
     public function index()
     {
-        // $data = Ubigeo::all();
-        $data = Ubigeo::select('ubigeo_id', DB::raw('CONCAT(ubigeo_country, " - " ,ubigeo_department, " - ", ubigeo_municipality) AS ubigeo'))->get();
-        return view('login_view.register', compact('data'));
+        $user_auth = Auth::user();
+        if(!$user_auth)
+        {
+            $data = Ubigeo::select('ubigeo_id', DB::raw('CONCAT(ubigeo_country, " - " ,ubigeo_department, " - ", ubigeo_municipality) AS ubigeo'))->get();
+            return view('login_view.register', compact('data'));
+        }
+        else{
+            return redirect()->intended('admin');
+        }
     }
 
     public function store(Request $request)
@@ -48,8 +56,8 @@ class RegisterController extends Controller
         $persondata->save();     
 
         $userdata = new User;
-        $userdata->user_username = $persondata->person_email;
-        $userdata->user_password = Hash::make($request->input('password'));
+        $userdata->email = $persondata->person_email;
+        $userdata->password = Hash::make($request->input('password'));
         $userdata->user_state = '1';
         $userdata->person_id = $persondata->person_id;
         $userdata->save();

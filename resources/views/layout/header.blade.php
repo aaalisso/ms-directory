@@ -1,4 +1,30 @@
 <!-- Navigation -->
+@auth
+<nav class="main-header navbar navbar-expand navbar-dark mx-background-top-linear">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" role="button">
+          <i class="fas fa-bars"></i>
+        </a>
+      </li>
+      <li class="nav-item-d-none d-sm-inline-block">
+        <a href="admin" class="nav-link">Home</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+@endauth
+
+
+
+@guest
 <header>
     <div class="fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
@@ -9,7 +35,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        @guest
                         <li class="nav-item active">
                             <a class="nav-link" href="/">Home
                                 <span class="sr-only">(current)</span>
@@ -26,32 +51,10 @@
                             <a class="nav-link" href="register">{{__('Sign up')}}</a>
                         </li>
                         @endif
-                        @else
-                        <li class="nav-item active">
-                            <a class="nav-link" href="admin">Home
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->email }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                        @endguest
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
 </header>
+@endguest

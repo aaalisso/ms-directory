@@ -1,8 +1,180 @@
-@extends('load_table_layout')
+@extends('layout.load_table')
+
+@section('title', 'Persona')
 
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
 @endsection
+
+
+@section('forms')
+<div id="add_record_box" class="collapse">
+    <form id="aform" action="{{url ('add-person')}}" class="needs-validation" novalidate method="POST">
+        @csrf
+        <div class="crud-content">
+            <div class="col">
+                <label for="aname">{{__('Name')}}</label>
+                <input type="text" name="aname" id="aname" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="asurname">{{__('Surname')}}</label>
+                <input type="text" name="asurname" id="asurname" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="aemail">{{__('email')}}</label>
+                <input type="text" name="aemail" id="aemail" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="aiddoc">{{__('iddoc')}}</label>
+                <input type="text" name="aiddoc" id="aiddoc" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="aaddress">{{__('Address')}}</label>
+                <input type="text" name="aaddress" id="aaddress" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="aphone">{{__('Phone')}}</label>
+                <input type="number" name="aphone" id="aphone" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="awebpage">{{__('Web Page')}}</label>
+                <input type="text" name="awebpage" id="awebpage" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="aphoto">{{__('Photo')}}</label>
+                <input type="text" name="aphoto" id="aphoto" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="abirthdate">{{__('BirthDate')}}</label>
+                <input type="date" name="abirthdate" id="abirthdate" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="aubigeoid">{{__('Ubigeo_id')}}</label>
+                <input type="number" name="aubigeoid" id="aubigeoid" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+        </div>
+        <div class="row-md" style="display: flex; justify-content: center;">
+            <button type="submit" value="submit" class="btn btn-primary" style="width: 20rem;">{{__('save')}}</button>
+        </div>
+    </form>
+</div>
+
+<div id="update_record_box" class="collapse">
+    <form id="uform" action="{{url ('update-person')}}" class="needs-validation" novalidate method="POST">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="record_id" id="record_id">
+        <div class="crud-content">
+            <div class="col">
+                <label for="uname">{{__('Name')}}</label>
+                <input type="text" name="uname" id="uname" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="usurname">{{__('Surname')}}</label>
+                <input type="text" name="usurname" id="usurname" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uemail">{{__('email')}}</label>
+                <input type="text" name="uemail" id="uemail" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uiddoc">{{__('iddoc')}}</label>
+                <input type="text" name="uiddoc" id="uiddoc" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uaddress">{{__('Address')}}</label>
+                <input type="text" name="uaddress" id="uaddress" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uphone">{{__('Phone')}}</label>
+                <input type="number" name="uphone" id="uphone" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uwebpage">{{__('Web Page')}}</label>
+                <input type="text" name="uwebpage" id="uwebpage" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uphoto">{{__('Photo')}}</label>
+                <input type="text" name="uphoto" id="uphoto" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="ubirthdate">{{__('BirthDate')}}</label>
+                <input type="date" name="ubirthdate" id="ubirthdate" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+            <div class="col">
+                <label for="uubigeoid">{{__('Ubigeo_id')}}</label>
+                <input type="number" name="uubigeoid" id="uubigeoid" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+        </div>
+        <div class="row-md" style="display: flex; justify-content: center;">
+            <button type="submit" value="submit" class="btn btn-success" style="width: 20rem;">{{__('update')}}</button>
+        </div>
+    </form>
+</div>
+@endsection
+
 
 @section('table_title')
 <h1>Lista Persona</h1>
@@ -28,7 +200,7 @@
 @foreach($person_data as $item)
 <tr>
     <td>
-        <button title="Actualizar" data-bs-toggle="modal" data-bs-target="#editRecord" value="{{$item->person_id}}" class="action-btn btn-success editbtn">
+        <button title="Actualizar" value="{{$item->person_id}}" class="action-btn btn-success editbtn" data-bs-toggle="collapse" data-bs-target="#update_record_box" aria-controls="update_record_box" aria-expanded="false">
             <i class="bi bi-pencil-square"></i>
         </button>
         <button title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteRecord" value="{{$item->person_id}}" class="action-btn btn-danger deletebtn">
@@ -213,17 +385,7 @@
 
 @endsection
 
-@section('scripts')
-<script>
-    $('#forms').on('hidden.bs.modal', function() {
-        document.getElementById("addPersonForm").reset();
-    })
-
-    $('#editPerson').on('hidden.bs.modal', function() {
-        document.getElementById("editPersonForm").reset();
-    })
-</script>
-
+@section('js')
 <script>
     $(document).ready(function() {
         $(document).on('click', '.deletebtn', function() {
@@ -231,50 +393,113 @@
             $('#delete_id').val(person_id);
         });
     });
-
+    
     $(document).ready(function() {
         $(document).on('click', '.editbtn', function() {
+            document.getElementById('add_record_box').classList.remove("show");
+            document.getElementById('aform').classList.remove("was-validated");
+            document.getElementById('uform').classList.remove("was-validated");
+            document.getElementById('aform').reset();
+            document.getElementById('uform').reset();
             var id = $(this).val();
             $.ajax({
                 type: "GET",
                 url: "edit-person/" + id,
                 success: function(response) {
                     // console.log(response);
-                    $('#edit_id').val(response.person.person_id);
-                    $('#edit_name').val(response.person.person_name);
-                    $('#edit_surname').val(response.person.person_surname);
-                    $('#edit_email').val(response.person.person_email);
-                    $('#edit_identity_document').val(response.person.person_identity_document);
-                    $('#edit_address').val(response.person.person_address);
-                    $('#edit_phone').val(response.person.person_phone);
-                    $('#edit_web_page').val(response.person.person_web_page);
-                    $('#edit_profile_picture').val(response.person.person_profile_picture);
-                    $('#edit_birthday_date').val(response.person.person_birthday_date);
-                    $('#edit_ubigeo_id').val(response.person.ubigeo_id);
+                    $('#record_id').val(response.person.person_id);
+                    $('#uname').val(response.person.person_name);
+                    $('#usurname').val(response.person.person_surname);
+                    $('#uemail').val(response.person.person_email);
+                    $('#uiddoc').val(response.person.person_identity_document);
+                    $('#uaddress').val(response.person.person_address);
+                    $('#uphone').val(response.person.person_phone);
+                    $('#uwebpage').val(response.person.person_web_page);
+                    $('#uphoto').val(response.person.person_profile_picture);
+                    $('#ubirthdate').val(response.person.person_birthday_date);
+                    $('#uubigeoid').val(response.person.ubigeo_id);
                 }
             });
         });
     });
 </script>
 
-<!-- table hover scripts-->
-<!-- <script type="text/javascript">
-    (function($) {
-        "use strict";
-        $('.pad').on('mouseover', function() {
-            var table1 = $(this).parent().parent().parent();
-            var table2 = $(this).parent().parent();
-            var column = $(this).data('column') + "";
-            $(table2).find("." + column).addClass('hov-column-custom');
-            $(table1).find(".custom-row.head ." + column).addClass('hov-column-head-custom');
+<script>
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+    
+    $(document).ready(function() {
+        table.destroy();
+    
+        table = $('#record_data').DataTable({
+            scrollX: true,
+            "lengthMenu": [
+                [5, 10, 50, -1],
+                [5, 10, 50, "All"]
+            ],
+            pagingType: 'full_numbers',
+            language: {
+                "decimal": ",",
+                "thousands": ".",
+                "info": "Mostrando _START_ al _END_ de _TOTAL_",
+                "infoEmpty": "Mostrando 0 de 0 - total 0",
+                "infoPostFix": "",
+                "infoFiltered": "(total registros: _MAX_)",
+                "loadingRecords": "Cargando...",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "searchPlaceholder": "Término de búsqueda",
+                "zeroRecords": "No se encontraron resultados",
+                "emptyTable": "Ningún dato disponible en esta tabla",
+                "aria": {
+                    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                //only works for built-in buttons, not for custom buttons
+                "buttons": {
+                    "create": "Nuevo",
+                    "edit": "Cambiar",
+                    "remove": "Borrar",
+                    "copy": "Copiar",
+                    "csv": "fichero CSV",
+                    "excel": "tabla Excel",
+                    "pdf": "documento PDF",
+                    "print": "Imprimir",
+                    "colvis": "Visibilidad columnas",
+                    "collection": "Colección",
+                    "upload": "Seleccione fichero...."
+                },
+                "select": {
+                    "rows": {
+                        _: '%d filas seleccionadas',
+                        0: 'clic fila para seleccionar',
+                        1: 'una fila seleccionada'
+                    }
+                }
+            }
         });
-        $('.pad').on('mouseout', function() {
-            var table1 = $(this).parent().parent().parent();
-            var table2 = $(this).parent().parent();
-            var column = $(this).data('column') + "";
-            $(table2).find("." + column).removeClass('hov-column-custom');
-            $(table1).find(".custom-row.head ." + column).removeClass('hov-column-head-custom');
-        });
-    })(jQuery);
-</script> -->
+    });
+</script>
 @endsection

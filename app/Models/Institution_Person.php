@@ -20,7 +20,7 @@ class Institution_Person extends Model
     protected $filliable = [        
         'institution_id',
         'person_id',
-        'ocuppation',
+        'occupation',
         'institutional_email',
         'incorporation_date'
     ];

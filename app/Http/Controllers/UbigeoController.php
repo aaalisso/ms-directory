@@ -17,14 +17,14 @@ class UbigeoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'country' => 'required',
-            'department' => 'required',
-            'municipality' => 'required',
+            'acountry' => 'required',
+            'adepartment' => 'required',
+            'amunicipality' => 'required',
         ]);
         $ubigeo_data = new Ubigeo;
-        $ubigeo_data->ubigeo_country = $request->input('country');
-        $ubigeo_data->ubigeo_department = $request->input('department');
-        $ubigeo_data->ubigeo_municipality = $request->input('municipality');
+        $ubigeo_data->ubigeo_country = $request->input('acountry');
+        $ubigeo_data->ubigeo_department = $request->input('adepartment');
+        $ubigeo_data->ubigeo_municipality = $request->input('amunicipality');
         $ubigeo_data->save();
         return redirect()->back()->with('status', 'Registro Añadido Exitosamente.');
     }
@@ -38,24 +38,26 @@ class UbigeoController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'edit_country' => 'required',
-            'edit_department' => 'required',
-            'edit_municipality' => 'required',
+            'ucountry' => 'required',
+            'udepartment' => 'required',
+            'umunicipality' => 'required',
         ]);
-        $id = $request->input('edit_id');
+        $id = $request->input('record_id');
         $ubigeo = Ubigeo::find($id);
-        $ubigeo->ubigeo_country = $request->input('edit_country');
-        $ubigeo->ubigeo_department = $request->input('edit_department');
-        $ubigeo->ubigeo_municipality = $request->input('edit_municipality');
+        $ubigeo->ubigeo_country = $request->input('ucountry');
+        $ubigeo->ubigeo_department = $request->input('udepartment');
+        $ubigeo->ubigeo_municipality = $request->input('umunicipality');
         $ubigeo->update();
-        return redirect()->back()->with('status', 'Registro Actualizado Exitosamente.');
+        // return redirect()->back()->with('status', 'Registro Actualizado Exitosamente.');
+        return redirect()->back();
     }
 
     public function destroy(Request $request)
     {
-        $id = $request->input('delete_id');
+        $id = $request->input('record_id');
         $ubigeo = Ubigeo::find($id);
         $ubigeo->delete();
-        return redirect()->back()->with('status', 'Registro Eliminado Exitosamente.');
+        // return redirect()->back()->with('status', 'Registro Eliminado Exitosamente.');
+        return redirect()->back();
     }
 }

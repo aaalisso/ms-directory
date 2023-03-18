@@ -9,12 +9,12 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
     <title>@yield('title')</title>
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/js/app.js'])
 
 </head>
 
 <body>
-    @extends('header')
+    @include('layout.header')
     <div class="main-container">
         @yield('content')
     </div>

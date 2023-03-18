@@ -1,8 +1,78 @@
-@extends('load_table_layout')
+@extends('layout.load_table')
+
+@section('title', 'Usuario')
 
 @section('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 @endsection
+
+@section('forms')
+<div id="add_record_box" class="collapse">
+    <form id="aform" action="{{url ('add-user')}}" class="needs-validation" novalidate method="POST">
+        <!-- <form id="aform" action="{{url ('add-user')}}" method="POST"> -->
+        @csrf
+        <div class="crud-content" id="crudCont">
+            <div class="col">
+                <label for="apassword">{{__('Password')}}</label>
+                <input type="text" name="apassword" id="apassword" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete or enter a valid password
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="astate">{{__('state')}}</label>
+                <input type="number" name="astate" id="astate" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="apersonid">{{__('PersonId')}}</label>
+                <input type="number" name="apersonid" id="apersonid" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+        </div>
+        <div class="row-md" style="display: flex; justify-content: center;">
+            <button id="submit_add_record" type="submit" class="btn btn-primary" style="width: 20rem;">{{__('save')}}</button>
+        </div>
+    </form>
+</div>
+
+<div id="update_record_box" class="collapse">
+    <form id="uform" action="{{url ('update-user')}}" class="needs-validation" novalidate method="POST">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="record_id" id="record_id">
+        <div class="crud-content">
+            <div class="col">
+                <label for="upassword">{{__('Password')}}</label>
+                <input type="text" name="upassword" id="upassword" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete or enter a valid password
+                </div>
+            </div>
+
+            <div class="col">
+                <label for="ustate">{{__('state')}}</label>
+                <input type="number" name="ustate" id="ustate" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please complete this field
+                </div>
+            </div>
+        </div>
+        <div class="row-md" style="display: flex; justify-content: center;">
+            <button id="submit_update_record" type="submit" value="submit" class="btn btn-success" style="width: 20rem;">{{__('update')}}</button>
+        </div>
+    </form>
+</div>
+@endsection
+
 
 @section('table_title')
 <h1>Lista Usuario</h1>
@@ -11,9 +81,9 @@
 @section('head_data')
 <tr>
     <th>{{__('actions')}}</th>
-    <th>{{__('password')}}</th>
-    <th>{{__('state')}}</th>
-    <th>{{__('person_id')}}</th>
+    <th>{{__('Estado')}}</th>
+    <th>{{__('Nombre')}}</th>
+    <th>{{__('Roles')}}</th>
 </tr>
 @endsection
 
@@ -21,171 +91,267 @@
 @foreach($data as $item)
 <tr>
     <td>
-        <button title="Actualizar" data-bs-toggle="modal" data-bs-target="#editRecord" value="{{$item->user_id}}" class="action-btn btn-success editbtn">
+        <button title="Actualizar" data-toggle="tooltip" data-bs-placement="bottom" value="{{$item->user_id}}" class="action-btn btn-success editbtn" data-bs-toggle="collapse" data-bs-target="#update_record_box" aria-controls="update_record_box" aria-expanded="false">
             <i class="bi bi-pencil-square"></i>
         </button>
-        <button title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteRecord" value="{{$item->user_id}}" class="action-btn btn-danger deletebtn">
+        <button title="Eliminar" data-toggle="tooltip" data-bs-placement="bottom" data-record-id="{{$item->user_id}}" class="action-btn btn-danger deletebtn">
             <i class="bi bi-x-square"></i>
         </button>
     </td>
-    <td>{{ $item->password}}</td>
-    <td>{{ $item->user_state}}</td>
-    <td>{{ $item->person_id}}</td>
+    <td>
+        @if($item->user_state == 1)
+        Habilitado
+        @else
+        Deshabilitado
+        @endif
+    </td>
+    <td>{{ $item->person_name}} {{$item->person_surname}}</td>
+    <td>
+        <button type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Ver Roles" value="{{$item->user_id}}" class="action-btn btn-info roles" data-bs-toggle="modal" data-bs-target="#user_roles" aria-controls="user_roles" aria-expanded="false">
+            <i class="bi bi-file-earmark-person-fill"></i>
+        </button>
+    </td>
 </tr>
 @endforeach
-@endsection
 
-@section('modals')
-<!-- Add Modal -->
-<div class="modal fade" id="add_Register" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addLabel">Ingrese datos de nuevo registro</h5>
-            </div>
-            <form action="{{ url ('add-user') }}" method="POST" id="add_Form">
-                @csrf
-                <div class="modal-body">
-                    <div class="row md-form mb-2">
-                        <div class="col-md-3">
-                            <label for="">{{__('password')}}</label>
-                            <input type="password" name="add_password" id="add_password" autocomplete="on" required class="form-control">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="">{{__('state')}}</label>
-                            <input type="text" name="add_state" id="add_state" required class="form-control" placeholder="0 ó 1">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">{{__('person_id')}}</label>
-                            <input type="text" name="add_person_id" id="add_person_id" required class="form-control" placeholder="0 ó 1">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{__('close')}}</button>
-                        <button type="submit" class="btn btn-primary">{{__('save')}}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end Add Modal-->
 
-<!-- Edit Modal -->
-<div class="modal fade" id="edit_Register" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editLabel">Actualizar datos</h5>
-            </div>
-            <form action="{{ url ('update-user') }}" method="POST" id="edit_Form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="edit_id" id="edit_id" />
-                <div class="modal-body">
-                    <div class="row md-form mb-2">
-                        <div class="col-md-3">
-                            <label for="">{{__('name')}}</label>
-                            <input type="password" name="edit_password" autocomplete="on" id="edit_password" required class="form-control">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="">{{__('surname')}}</label>
-                            <input type="text" name="edit_state" id="edit_state" required class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">{{__('email')}}</label>
-                            <input type="text" name="edit_person_id" id="edit_person_id" required class="form-control">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{__('close')}}</button>
-                        <button type="submit" class="btn btn-primary">{{__('edit')}}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end Edit Modal -->
-
-<!-- Delete Modal -->
-<div class="modal fade" id="delete_Register" tabindex="-1" aria-labelledby="deletePersonLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ url ('delete-user') }}" method="POST" id="deltePersonForm">
-                @csrf
-                @method('DELETE')
-
-                <input type="hidden" name="delete_id" id="delete_id">
-
-                <h5 class="message center" id="deletePersonLabel">¿Desea eliminar el registro?</h5>
-                <div class="modal-footer btn-group center">
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">{{__('close')}}</button>
-                    <button type="submit" class="btn btn-primary btn-sm">{{__('delete')}}</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end Delete Modal -->
 
 @endsection
 
-@section('scripts')
+@yield('filldata')
+<div class="modal fade" id="user_roles" tabindex="-1" role="dialog" aria-labelledby="userRolesLabel" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content" id="role_user">
+
+        </div>
+    </div>
+</div>
+
+@section('js')
 <script>
-    $('#add_Register').on('hidden.bs.modal', function() {
-        document.getElementById("add_Form").reset();
-    })
-
-    $('#edit_Register').on('hidden.bs.modal', function() {
-        document.getElementById("edit_Form").reset();
-    })
+    $(document).ready(function() {
+        var records = document.getElementsByName('');
+    });
 </script>
 
 <script>
+    //init dataTable
     $(document).ready(function() {
-        $(document).on('click', '.deletebtn', function() {
-            var id = $(this).val();
-            $('#delete_id').val(id);
+        //tooltip
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+            $(document).click(function() {
+                $('[data-toggle="tooltip"]').tooltip("hide");
+            });
+        });
+
+        //Forms Validation
+        (() => {
+            "use strict";
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll(".needs-validation");
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach((form) => {
+                form.addEventListener(
+                    "submit",
+                    (event) => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add("was-validated");
+                    },
+                    false
+                );
+            });
+        })();
+
+        table.destroy();
+
+        table = $("#record_data").DataTable({
+            scrollX: true,
+            lengthMenu: [
+                [5, 10, 50, -1],
+                [5, 10, 50, "All"],
+            ],
+            pagingType: "full_numbers",
+            language: {
+                decimal: ",",
+                thousands: ".",
+                info: "Mostrando _START_ al _END_ de _TOTAL_",
+                infoEmpty: "Mostrando 0 de 0 - total 0",
+                infoPostFix: "",
+                infoFiltered: "(total registros: _MAX_)",
+                loadingRecords: "Cargando...",
+                lengthMenu: "Mostrar _MENU_ registros",
+                paginate: {
+                    first: "Primero",
+                    last: "Último",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                },
+                processing: "Procesando...",
+                search: "Buscar:",
+                searchPlaceholder: "Término de búsqueda",
+                zeroRecords: "No se encontraron resultados",
+                emptyTable: "Ningún dato disponible en esta tabla",
+                aria: {
+                    sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                    sortDescending: ": Activar para ordenar la columna de manera descendente",
+                },
+                //only works for built-in buttons, not for custom buttons
+                buttons: {
+                    create: "Nuevo",
+                    edit: "Cambiar",
+                    remove: "Borrar",
+                    copy: "Copiar",
+                    csv: "fichero CSV",
+                    excel: "tabla Excel",
+                    pdf: "documento PDF",
+                    print: "Imprimir",
+                    colvis: "Visibilidad columnas",
+                    collection: "Colección",
+                    upload: "Seleccione fichero....",
+                },
+                select: {
+                    rows: {
+                        _: "%d filas seleccionadas",
+                        0: "clic fila para seleccionar",
+                        1: "una fila seleccionada",
+                    },
+                },
+            },
         });
     });
 
+    //Update record
     $(document).ready(function() {
-        $(document).on('click', '.editbtn', function() {
+        $(document).on("click", ".editbtn", function() {
+            document.getElementById("add_record_box").classList.remove("show");
+            document.getElementById("aform").classList.remove("was-validated");
+            document.getElementById("uform").classList.remove("was-validated");
+            document.getElementById("aform").reset();
+            document.getElementById("uform").reset();
+            var record_id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "edit-user/" + record_id,
+                success: function(response) {
+                    $("#record_id").val(response.user.user_id);
+                    $("#ustate").val(response.user.user_state);
+                    $("#uroleid").val(response.user.role_id);
+                    $("#upersonid").val(response.user.person_id);
+                },
+            });
+        });
+    });
+
+    //get roles
+    $(document).ready(function() {
+        $(document).on("click", ".roles", function() {
             var id = $(this).val();
             $.ajax({
                 type: "GET",
-                url: "edit-user/" + id,
+                url: "user/get-roles/" + id,
                 success: function(response) {
-                    console.log(response);
-                    $('#edit_id').val(response.user.user_id);
-                    $('#edit_password').val(response.user.user_password);
-                    $('#edit_state').val(response.user.user_state);
-                    $('#edit_person_id').val(response.user.person_id);
+                    $("#role_user").html(response);
+                },
+            });
+        });
+    });
+
+    //change role state
+    $(document).ready(function() {
+        $(document).on("click", ".role_button_state", function() {
+            var ur_id = this.getAttribute("data-id");
+            var user_id = this.getAttribute("data-user");
+            var state = this.getAttribute("data-state");
+
+            $.ajax({
+                data: {
+                    ur_id: ur_id,
+                    user_id: user_id,
+                    state: state,
+                    _token: "{{ csrf_token() }}",
+                },
+                type: "PUT",
+                url: "user/change_role/" + ur_id,
+                success: function(response) {
+                    $("#role_user").html(response);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "El estado se cambió con éxito",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                },
+                error: function(response) {
+                    alert("FAIL");
+                },
+            });
+        });
+    });
+
+    //Delete record
+    $(document).ready(function() {
+        $(document).on("click", ".deletebtn", function() {
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "¡Eliminarás todos los roles asginados a este usuario!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminarlo",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                // si el usuario confirma la eliminación, realiza la acción
+                if (result.isConfirmed) {
+                    var id = $(this).data("record-id");
+                    $.ajax({
+                        url: "delete-user/" + id,
+                        type: "DELETE",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(response) {
+                            alert("Success");
+                        },
+                        error: function(xhr) {
+                            alert("FAIL");
+                        },
+                    });
                 }
             });
         });
     });
-</script>
 
-<!-- table hover scripts-->
-<!-- <script type="text/javascript">
-    (function($) {
-        "use strict";
-        $('.pad').on('mouseover', function() {
-            var table1 = $(this).parent().parent().parent();
-            var table2 = $(this).parent().parent();
-            var column = $(this).data('column') + "";
-            $(table2).find("." + column).addClass('hov-column-custom');
-            $(table1).find(".custom-row.head ." + column).addClass('hov-column-head-custom');
+    //show roles to add
+    $(document).ready(function() {
+        $(document).on("click", ".addrol", function() {
+            var user_id = this.getAttribute("data-user");
+            $.ajax({
+                type: "GET",
+                url: "user/show_add_role",
+                data: {
+                    user_id: user_id,
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    $("#role_user").html(response);
+                },
+            });
         });
-        $('.pad').on('mouseout', function() {
-            var table1 = $(this).parent().parent().parent();
-            var table2 = $(this).parent().parent();
-            var column = $(this).data('column') + "";
-            $(table2).find("." + column).removeClass('hov-column-custom');
-            $(table1).find(".custom-row.head ." + column).removeClass('hov-column-head-custom');
-        });
-    })(jQuery);
-</script> -->
+    });
+
+    //Add checked roles
+    // $(document).ready(function() {
+    //     $(document).on('click', '.sendRoles', function(){
+
+    //     });
+    // });
+</script>
 @endsection

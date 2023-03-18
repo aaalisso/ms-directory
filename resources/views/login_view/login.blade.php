@@ -1,5 +1,9 @@
-@extends('layout.layout')
+@extends('admin_view.main')
+
+@section('title','Login')
+
 @section('content')
+
 @vite(['resources/css/main_background.css', 'resources/css/login_styles.css'])
 <div class="log-box-sections">
     <div class="left-box">

@@ -18,10 +18,10 @@ return new class extends Migration
             $table->increments('user_id');
             $table->string('email', 100)->unique();
             $table->string('password', 255);
-            $table->string('user_state', 50);
             $table->unsignedInteger('person_id')->unique();
             $table->timestamp("user_created_at")->useCurrent();
             $table->timestamp("user_updated_at")->useCurrent()->useCurrentOnUpdate();
+            $table->string('user_state', 50);
         });
     }
 

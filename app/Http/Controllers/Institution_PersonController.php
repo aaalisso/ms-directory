@@ -15,11 +15,11 @@ class Institution_PersonController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'add_institution_id' => 'required',
-            'add_person_id' => 'required',
-            'add_occupation' => 'required',
-            'add_institutional_email' => 'required',
-            'add_incorporation_date' => 'required',
+            'ainstitutionid' => 'required',
+            'apersonid' => 'required',
+            'aoccupation' => 'required',
+            'ainstitutionalemail' => 'required',
+            'aincorporationdate' => 'required',
         ]);
         $inst_pers_data = new Institution_Person;
         $inst_pers_data->institution_id = $request->input('add_institution_id');
