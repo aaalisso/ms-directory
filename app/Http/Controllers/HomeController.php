@@ -16,6 +16,7 @@ class HomeController extends Controller
         }
         else{
             return redirect()->intended('admin');
+            // comentario prueba andres
         }
     }
 }
