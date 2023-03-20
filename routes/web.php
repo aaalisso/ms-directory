@@ -83,6 +83,7 @@ Route::post('add-register', [RegisterController::class, 'store']);
 Route::group(['middleware' => ['auth']], function () {
     /**
      * Logout Route
+     * Aqui falta agregar los middlware
      */
     Route::post('logout', [LogoutController::class, 'logout'])->name('logout');
 });
