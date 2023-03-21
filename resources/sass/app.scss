@@ -4,9 +4,9 @@
 @import 'variables';
 @import 'btn_styles';
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap';
 
-@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "~bootstrap-icons/font/bootstrap-icons";
 @import "~admin-lte/dist/css/adminlte.css";
 
 $fa-font-path:"~fa/../webfonts";
