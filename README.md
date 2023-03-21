@@ -1,3 +1,20 @@
+# Iniciar proyecto
+
+Para poner en marcha el proyecto se deben ejecutar los siguientes comandos:
+
+* php artisan migrate
+
+* php artisan db:seed UbigeoSeeder
+
+* php artisan db:seed InstitutionSeeder
+
+* php artisan db:seed PersonSeeder
+
+* php artisan db:seed UserSeeder
+
+* php artisan serve
+
+
 # MS-Directory
 Sistema de Marketing módulo Directorio, podrá realizar las funciones de vizualizar, agregar, editar y eliminar registros en las cinco tablas presentes en la base de datos. Entre las opciones disponibles estan:
 1. [Ubigeo](#Ubigeo)
