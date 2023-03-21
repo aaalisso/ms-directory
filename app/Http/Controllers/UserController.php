@@ -31,6 +31,8 @@ class UserController extends Controller
     public function get_roles($id)
     {
         try {
+            $roles = Role::all();
+            $countRoles = count($roles);
             $user_info = DB::table('user as u')->select(
                 'p.person_name',
                 'p.person_surname',
@@ -38,11 +40,10 @@ class UserController extends Controller
             )
                 ->join('person as p', 'u.person_id', '=', 'p.person_id')
                 ->where('u.user_id', $id)->first();
-
             $fill = DB::table('user_role as ur')->select(
                 'ur.id',
                 'p.person_name',
-                'ur.state',
+                'ur.ur_state',
                 'ur.user_id',
                 'r.role_id as role_id',
                 'r.role_description as role_description'
@@ -51,11 +52,18 @@ class UserController extends Controller
                 ->join('user as u', 'ur.user_id', '=', 'u.user_id')
                 ->join('person as p', 'p.person_id', '=', 'u.person_id')
                 ->where('ur.user_id', $id)->get();
+
+            $countFill = count($fill);
+            if ($countFill == $countRoles) {
+                $addRoleBtnState = 0;
+            } else {
+                $addRoleBtnState = 1;
+            }
             // print_r($fill);
             // print_r('-----------------------------------------------');
-            // print_r($user_info);
+            // print_r($addRoleBtnState);
             // exit();
-            return view('layout.role_table', compact('fill', 'user_info'));
+            return view('layout.role_table', compact('user_info', 'fill', 'addRoleBtnState'));
         } catch (\Exception $e) {
             $user_info = DB::table('user as u')->select(
                 'p.person_name',
@@ -64,7 +72,10 @@ class UserController extends Controller
             )
                 ->join('person as p', 'u.person_id', '=', 'p.person_id')
                 ->where('u.user_id', $id)->first();
-            return view('layout.role_table', compact('person'));
+            $fill = [];
+            // print_r($fill);
+            // exit();
+            return view('layout.role_table', compact('user_info', 'fill'));
         }
     }
     public function change($ur_id)
@@ -73,7 +84,7 @@ class UserController extends Controller
         $state = request('state');
 
         $data = User_Role::find($ur_id);
-        $data->state = $state;
+        $data->ur_state = $state;
         $data->update();
 
         $getdata = $this->get_roles($user_id);
@@ -83,20 +94,34 @@ class UserController extends Controller
     //start section en proceso
     public function show_add_role()
     {
-        $user_id = request('user_id');
-        $user_info = DB::table('user as u')->select(
-            'p.person_name',
-            'u.user_id as user_id'
-        )
-            ->join('person as p', 'u.person_id', '=', 'p.person_id')
-            ->where('u.user_id', $user_id)->first();
-        $rolelist = DB::table('role as r')
-            ->select('r.role_id', 'r.role_description')
-            ->leftJoin('user_role as ur', 'r.role_id', '=', 'ur.role_id')
-            ->whereNull('ur.role_id')->orderBy('r.role_id')->get();
-        // echo($rolelist);
-        // exit();
-        return view('layout.add_role', compact('user_info', 'rolelist'));
+        try {
+            $user_id = request('user_id');
+            $user_info = DB::table('user as u')->select(
+                'p.person_name',
+                'u.user_id as user_id'
+            )
+                ->join('person as p', 'u.person_id', '=', 'p.person_id')
+                ->where('u.user_id', $user_id)->first();
+            $rolelist = DB::table('role as r')
+                ->select('r.role_id', 'r.role_description')
+                ->leftJoin('user_role as ur', 'r.role_id', '=', 'ur.role_id')
+                ->whereNull('ur.role_id')->orderBy('r.role_id')->get();
+            return view('layout.add_role', compact('user_info', 'rolelist'));
+        } catch (\Exception $e) {
+            $user_id = request('user_id');
+            $user_info = DB::table('user as u')->select(
+                'p.person_name',
+                'u.user_id as user_id'
+            )
+                ->join('person as p', 'u.person_id', '=', 'p.person_id')
+                ->where('u.user_id', $user_id)->first();
+            $rolelist = DB::table('role')
+                ->select('role_id', 'role_description')
+                ->orderBy('r.role_id')->get();
+            // echo($rolelist);
+            // exit();
+            return view('layout.add_role', compact('user_info', 'rolelist'));
+        }
     }
     public function add_role(Request $request)
     {
@@ -109,7 +134,6 @@ class UserController extends Controller
                 $row = new User_Role();
                 $row->user_id = $user_id;
                 $row->role_id = $request->input("role.{$index}");
-                $row->state = '1';
                 // print_r('**fila: ');
                 // print_r(' *usuario: ');
                 // print_r($row->user_id);
@@ -120,7 +144,8 @@ class UserController extends Controller
             }
         }
         // exit();
-        return redirect()->intended('user');
+        $showdata = $this->get_roles($user_id);
+        return response($showdata);
         // $getdata = $this->get_roles($user_id);
         // return view($getdata);
     }
@@ -130,9 +155,7 @@ class UserController extends Controller
     {
         $request->validate([
             'apassword' => 'required',
-            'astate' => 'required',
             'apersonid' => 'required',
-            'aroleid' => 'required',
         ]);
 
         $person = DB::table('person')->select('person_email')->where('person_id', '=', $request->apersonid)->first();
@@ -140,9 +163,7 @@ class UserController extends Controller
         $data = new User();
         $data->email = $person->person_email;
         $data->password = Hash::make($request->input('apassword'));
-        $data->user_state = $request->input('astate');
         $data->person_id = $request->input('apersonid');
-        $data->role_id = $request->input('aroleid');
         $data->save();
         return redirect()->back()->with('status', 'Registro Añadido Exitosamente.');
     }

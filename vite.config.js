@@ -11,6 +11,7 @@ export default defineConfig({
                 //
                 "resources/js/app.js",
                 "resources/js/forms.js",
+
                 //
                 "resources/css/login_styles.css",
                 "resources/css/main_background.css",

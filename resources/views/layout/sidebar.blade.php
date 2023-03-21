@@ -88,6 +88,24 @@
                         <p>Usuario</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="user" class="nav-link">
+                        <!-- <i class="fa-solid fa-user"></i> -->
+                        <p>Roles</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user" class="nav-link">
+                        <!-- <i class="fa-solid fa-user"></i> -->
+                        <p>Permisos</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user" class="nav-link">
+                        <!-- <i class="fa-solid fa-user"></i> -->
+                        <p>Subscripciones</p>
+                    </a>
+                </li>
             </ul>
         </div>
 

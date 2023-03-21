@@ -12,9 +12,15 @@
         </a>
     </div>
     <div class="modal-body">
-        <button type="button" class="btn-dark btn-sm addrol" data-user="{{$user_info->user_id}}" data-toggle="tooltip" data-bs-placement="right">
-            <i class="bi bi-plus-square-fill"></i> Ver roles
+        @if($addRoleBtnState == 1)
+        <button type="button" class="btn-outline-info btn-sm addrol" data-user="{{$user_info->user_id}}" data-toggle="tooltip" data-bs-placement="right">
+            <i class="bi bi-plus-square-fill"></i> Añadir roles
         </button>
+        @else
+        <button type="button" class="btn-secondary btn-sm addrol" disabled data-user="{{$user_info->user_id}}" data-toggle="tooltip" data-bs-placement="right">
+            <i class="bi bi-plus-square-fill"></i> Añadir roles
+        </button>
+        @endif
         <br></br>
         <div class="card">
             <div class="card-body table-responsive p-0" style="height: 300px;">
@@ -30,7 +36,7 @@
                         @foreach($fill as $row)
                         <tr>
                             <td>
-                                @if($row->state == 1)
+                                @if($row->ur_state == 1)
                                 <button title="Habilitado" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" class="btn role_button_state ena" data-id="{{$row->id}}" data-user="{{$row->user_id}}" data-state="0">
                                     <i class="bi bi-toggle-on"></i>
                                 </button>
@@ -47,8 +53,6 @@
                 </table>
             </div>
         </div>
-    </div>
-    <div class="modal-footer">
-        <button id="btnClose_add_role_view" type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button id="btnClose_add_role_view" type="button" class="btn-danger btn-sm float-right" data-bs-dismiss="modal">Cerrar</button>
     </div>
 </div>
