@@ -300,7 +300,7 @@
         $(document).on("click", ".deletebtn", function() {
             Swal.fire({
                 title: "¿Estás seguro?",
-                text: "¡Eliminarás todos los roles asginados a este usuario!",
+                text: "¡El usuario será deshabilitado indefinidamente!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -346,12 +346,36 @@
             });
         });
     });
-
-    //Add checked roles
-    // $(document).ready(function() {
-    //     $(document).on('click', '.sendRoles', function(){
-
-    //     });
-    // });
+</script>
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.sendRoles', function(e) {
+            e.preventDefault();
+            
+            var formData = $('#aRoles').serialize();
+            console.log(formData);
+            // $.ajax({
+            //     type: 'POST',
+            //     url: $(this).attr('action'),
+            //     data: formData,
+            //     dataType: 'json',
+            //     success: function(response) {
+            //         $("#role_user").html(response);
+            //         Swal.fire({
+            //             title: '¡Enviado!',
+            //             text: response.message,
+            //             icon: 'success'
+            //         });
+            //     },
+            //     error: function(xhr, textStatus, error) {
+            //         Swal.fire({
+            //             title: '¡Error!',
+            //             text: 'Error al guardar los cambios',
+            //             icon: 'error'
+            //         });
+            //     }
+            // });
+        });
+    })
 </script>
 @endsection

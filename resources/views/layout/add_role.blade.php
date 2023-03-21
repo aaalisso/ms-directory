@@ -9,13 +9,8 @@
         </h3>
     </div>
     <div class="modal-body">
-        <form id="aRoles" action="{{url('user/add_role')}}" method="POST">
+        <form id="aRoles" action="{{url('user/add_role')}}" method="POST" class="aRolesForm">
             @csrf
-            <!-- <button type="submit" class="btn-success btn-sm sendRoles" data-user="{{$user_info->user_id}}" data-toggle="tooltip" data-bs-placement="right"> -->
-            <button type="submit" class="btn-success btn-sm sendRoles" data-toggle="tooltip" data-bs-placement="right">
-                <i class="bi bi-plus-square-fill"></i> Añadir seleccionados
-            </button>
-            <br></br>
             <div class="card">
                 <div class="card-body table-responsive p-0" style="height: 300px;">
                     <table id="user_roles_data" class="table table-head-fixed text-nowrap">
@@ -28,7 +23,7 @@
                         <tbody>
                             @foreach($rolelist as $role)
                             <tr>
-                                <td class="center-check">
+                                <td>
                                     <input value="{{$role->role_id}}" type="checkbox" class="control-form" name="role[]" />
                                 </td>
                                 <td>
@@ -36,18 +31,50 @@
                                 </td>
                             </tr>
                             @endforeach
-                            <tr>
-                                <td>
-                                    <input value="{{$user_info->user_id}}" type="hidden" class="control-form" name="user_id">
-                                </td>
-                            </tr>
+                            <input value="{{$user_info->user_id}}" type="hidden" class="control-form" name="user_id">
                         </tbody>
                     </table>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <button id="sendRoles" disabled type="submit" class="btn-secondary btn-sm sendRoles float-right" data-toggle="tooltip" data-bs-placement="right">
+                        <i class="bi bi-plus-square-fill"></i> Guardar
+                    </button>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn-danger btn-sm float-right" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
         </form>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-    </div>
 </div>
+
+<script>
+    //check role selection
+    var roleCheckBoxes = document.querySelectorAll('input[type=checkbox]');
+    var roleSubmit = document.querySelector('#sendRoles');
+
+    function checkRoleCheckBoxes() {
+        let checked = false;
+
+        roleCheckBoxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                checked = true;
+            }
+        });
+        if (checked) {
+            roleSubmit.disabled = false;
+            roleSubmit.classList.remove('btn-secondary');
+            roleSubmit.classList.add('btn-success');
+        } else {
+            roleSubmit.disabled = true;
+            roleSubmit.classList.add('btn-secondary');
+            roleSubmit.classList.remove('btn-success');
+        }
+    }
+    roleCheckBoxes.forEach(checkbox => {
+        checkbox.addEventListener('change', checkRoleCheckBoxes)
+    });
+</script>
+

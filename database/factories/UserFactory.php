@@ -18,11 +18,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'role_id' => '1',
             'email' => 'aldo@gmail.com',
             'password' => '$2y$10$0KfXiYgqloZ/3RXRfgBXrOMF9Ri9MsOSReP6uHuuoHR0OvjBLablG', // password
-            'user_state' => '1',
-            'person_id' => '2'
+            'person_id' => '1'
         ];
     }
 }

@@ -18,6 +18,7 @@ class User extends Authenticatable
     protected $username = 'user_username';
     protected $guarded = [
         'user_id',
+        'user_state',
         'user_created_at' => 'created_at',
         'user_updated_at' => 'updated_at',
     ];
@@ -25,7 +26,6 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
-        'user_state',
         'person_id',
     ];
 }

@@ -17,7 +17,8 @@ return new class extends Migration
         Schema::create('role', function (Blueprint $table) {
             $table->increments('role_id');
             $table->string('role_description',250)->unique();
-            $table->timestamps();
+            $table->timestamp("user_created_at")->useCurrent();
+            $table->timestamp("user_updated_at")->useCurrent()->useCurrentOnUpdate();
         });
     }
 
