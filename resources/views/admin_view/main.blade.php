@@ -36,19 +36,24 @@
 
   @yield('js')
   <script>
+    $(function () {
     var url = window.location;
-    const allLinks = document.querySelectorAll('.nav-item a');
-    const currentLink = [...allLinks].filter(e => {
-      return e.href == url;
-    });
+    // for single sidebar menu
+    $('ul.nav-sidebar a').filter(function () {
+        return this.href == url;
+    }).addClass('active');
 
-    if (currentLink.length > 0) {
-      currentLink[0].classList.add("active");
-    }
+    // for sidebar menu and treeview
+    $('ul.nav-treeview a').filter(function () {
+        return this.href == url;
+    }).parentsUntil(".nav-sidebar > .nav-treeview")
+        .css({'display': 'block'})
+        .addClass('menu-open').prev('a')
+        .addClass('active');
+});
   </script>
-
   <script>
-    $('#user_roles').on('hidden.bs.modal', function(e){
+    $('#user_roles').on('hidden.bs.modal', function(e) {
       $('#role_user').html('');
     });
   </script>

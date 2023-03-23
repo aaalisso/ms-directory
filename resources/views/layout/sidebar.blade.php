@@ -45,9 +45,6 @@
         <!--sidebar body-->
         <div class="mt-2">
             <ul id="navigation-panel" class="nav nav-pills nav-sidebar nav-child-ident flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-
-
                 <li class="nav-header">TABLES</li>
                 <li class="nav-item">
                     <a href="ubigeo" class="nav-link">
@@ -108,7 +105,5 @@
                 </li>
             </ul>
         </div>
-
     </div>
-
 </aside>
