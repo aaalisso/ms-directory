@@ -10,12 +10,7 @@ export default defineConfig({
         outDir: 'public/dist',
     },
     plugins: [
-        php({
-            root: './public',
-            base: '/',
-            bin: 'php',
-            debug: true
-          }),
+
         laravel({
             input: [
                 //
