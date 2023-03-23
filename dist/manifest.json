@@ -1,0 +1,50 @@
+{
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
+    "file": "assets/bootstrap-icons-c6569d46.woff",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
+  },
+  "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
+    "file": "assets/bootstrap-icons-966620f9.woff2",
+    "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
+  },
+  "public/assets/logo-iiap.png": {
+    "file": "assets/logo-iiap-bac50a2c.png",
+    "src": "public/assets/logo-iiap.png"
+  },
+  "resources/css/login_assets/login_background.jpg": {
+    "file": "assets/login_background-e43d8b5e.jpg",
+    "src": "resources/css/login_assets/login_background.jpg"
+  },
+  "resources/css/login_styles.css": {
+    "file": "assets/login_styles-750b6c57.css",
+    "isEntry": true,
+    "src": "resources/css/login_styles.css"
+  },
+  "resources/css/main_background.css": {
+    "file": "assets/main_background-59ff183e.css",
+    "isEntry": true,
+    "src": "resources/css/main_background.css"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-ab8aad2f.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "assets": [
+      "assets/bootstrap-icons-966620f9.woff2",
+      "assets/bootstrap-icons-c6569d46.woff",
+      "assets/logo-iiap-bac50a2c.png"
+    ],
+    "css": [
+      "assets/app-ab8aad2f.css"
+    ],
+    "file": "assets/app-c033507c.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/forms.js": {
+    "file": "assets/forms-9eae1a43.js",
+    "isEntry": true,
+    "src": "resources/js/forms.js"
+  }
+}

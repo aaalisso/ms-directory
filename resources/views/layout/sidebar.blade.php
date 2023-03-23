@@ -45,9 +45,6 @@
         <!--sidebar body-->
         <div class="mt-2">
             <ul id="navigation-panel" class="nav nav-pills nav-sidebar nav-child-ident flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-
-
                 <li class="nav-header">TABLES</li>
                 <li class="nav-item">
                     <a href="ubigeo" class="nav-link">
@@ -88,9 +85,25 @@
                         <p>Usuario</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="user" class="nav-link">
+                        <!-- <i class="fa-solid fa-user"></i> -->
+                        <p>Roles</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user" class="nav-link">
+                        <!-- <i class="fa-solid fa-user"></i> -->
+                        <p>Permisos</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="user" class="nav-link">
+                        <!-- <i class="fa-solid fa-user"></i> -->
+                        <p>Subscripciones</p>
+                    </a>
+                </li>
             </ul>
         </div>
-
     </div>
-
 </aside>

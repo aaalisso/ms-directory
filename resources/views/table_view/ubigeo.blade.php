@@ -209,5 +209,38 @@
             }
         });
     });
+
+    $(document).ready(function() {
+        $(document).on("click", ".deletebtn", function() {
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "¡El registro dejará de estar disponible, indefinidamente!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminarlo",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                // si el usuario confirma la eliminación, realiza la acción
+                if (result.isConfirmed) {
+                    var id = $(this).data("record-id");
+                    $.ajax({
+                        url: "delete-user/" + id,
+                        type: "DELETE",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        success: function(response) {
+                            alert("Success");
+                        },
+                        error: function(xhr) {
+                            alert("FAIL");
+                        },
+                    });
+                }
+            });
+        });
+    });
 </script>
 @endsection
