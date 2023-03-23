@@ -3,7 +3,7 @@ window._ = _;
 
 import 'bootstrap';
 import 'admin-lte';
-import 'datatables.net-dt'
+//import 'datatables.net-dt'
 
 
 /**
